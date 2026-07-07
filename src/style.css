@@ -1005,16 +1005,19 @@ textarea.notepad-textarea,
   display: inline-block;
 }
 
-.pdf-page.zoom-75  { max-width: 330px; }
-.pdf-page.zoom-100 { max-width: 440px; }
-.pdf-page.zoom-125 { max-width: 550px; }
-.pdf-page.zoom-150 { max-width: 660px; }
+.pdf-page.zoom-75  { zoom: 0.75; }
+.pdf-page.zoom-100 { zoom: 1.0; }
+.pdf-page.zoom-125 { zoom: 1.25; }
+.pdf-page.zoom-150 { zoom: 1.5; }
+.pdf-page.zoom-175 { zoom: 1.75; }
+.pdf-page.zoom-200 { zoom: 2.0; }
 
 .pdf-page-preview {
   background-color: #525659;
   padding: 15px;
   height: 380px;
   overflow-y: auto;
+  overflow-x: auto;
   display: flex;
   flex-direction: column;
   align-items: center;

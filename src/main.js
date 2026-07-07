@@ -854,14 +854,10 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Accesorios extra
-  const btnDownloadCv = document.getElementById("btn-download-cv");
-  btnDownloadCv?.addEventListener("click", () => {
-    window.print();
-  });
 
   // Zoom de CV
-  let cvZoomLevel = 100;
-  const cvZoomLevels = [75, 100, 125, 150];
+  let cvZoomLevel = isMobile ? 100 : 150;
+  const cvZoomLevels = [75, 100, 125, 150, 175, 200];
   const cvPages = document.querySelectorAll("#win-cv .pdf-page");
   const cvZoomLabel = document.getElementById("cv-zoom-label");
   const btnZoomIn = document.getElementById("btn-zoom-in");
@@ -875,6 +871,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     if (cvZoomLabel) cvZoomLabel.textContent = level + "%";
   }
+
+  // Aplicar zoom por defecto al inicio
+  applyCvZoom(cvZoomLevel);
 
   btnZoomIn?.addEventListener("click", () => {
     const idx = cvZoomLevels.indexOf(cvZoomLevel);
@@ -913,42 +912,42 @@ document.addEventListener("DOMContentLoaded", () => {
   const winampTracks = [
     {
       title: "The Lift - Kevin MacLeod",
-      url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/The%20Lift.mp3",
+      url: "/sounds/the_lift.mp3",
       kbps: 320,
       khz: 44,
       duration: "00:00"
     },
     {
       title: "Blippy Trance - Kevin MacLeod",
-      url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Blippy%20Trance.mp3",
+      url: "/sounds/blippy_trance.mp3",
       kbps: 320,
       khz: 44,
       duration: "00:00"
     },
     {
       title: "Cut Trance - Kevin MacLeod",
-      url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Cut%20Trance.mp3",
+      url: "/sounds/cut_trance.mp3",
       kbps: 320,
       khz: 44,
       duration: "00:00"
     },
     {
       title: "Mesmerize - Kevin MacLeod",
-      url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Mesmerize.mp3",
+      url: "/sounds/mesmerize.mp3",
       kbps: 320,
       khz: 44,
       duration: "00:00"
     },
     {
       title: "Rising Tide - Kevin MacLeod",
-      url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Rising%20Tide.mp3",
+      url: "/sounds/rising_tide.mp3",
       kbps: 320,
       khz: 44,
       duration: "00:00"
     },
     {
       title: "Fluidscape - Kevin MacLeod",
-      url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Fluidscape.mp3",
+      url: "/sounds/fluidscape.mp3",
       kbps: 320,
       khz: 44,
       duration: "00:00"

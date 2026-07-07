@@ -30,12 +30,13 @@ El proyecto fue desarrollado desde cero con un enfoque de optimización y fideli
     *   Avatares detallados con pestañas inferiores desplegables.
     *   Pie publicitario nostálgico (*Ad Banner*).
 4.  **Adobe Reader CV Integrado**:
-    *   Visualizador simulado de currículum en formato PDF con controles de zoom (75%–150%), descarga y barra de estado.
+    *   Visualizador simulado de currículum en formato PDF con controles de zoom proporcional desde 75% hasta 200% (150% por defecto en Desktop y 100% por defecto en Mobile con soporte de desplazamiento horizontal).
+    *   Botón de descarga nativo enlazado directamente a tu archivo `/CV.pdf`.
 5.  **Winamp Player Retro**:
-    *   Reproductor de audio con auténtico diseño Winamp (chasis gris oscuro, display LED verde).
-    *   Visualizador osciloscopio con picos de brillo.
-    *   Playlist shuffle/repeat y slider de progreso.
-    *   6 canciones estilo trance ambiental de Kevin MacLeod (The Lift, Blippy Trance, Cut Trance, Mesmerize, Rising Tide, Fluidscape).
+    *   Reproductor de audio con auténtico diseño Winamp (chasis gris-púrpura metalizado con perillas y botonera circular plateada 3D).
+    *   Visualizador osciloscopio procedimental que responde en tiempo real a la música.
+    *   Playlist shuffle/repeat, barra de progreso a lo ancho de la pantalla y volumen integrado.
+    *   6 canciones estilo trance ambiental de Kevin MacLeod alojadas localmente para evitar restricciones de CORS (`public/sounds/`).
 
 ---
 
