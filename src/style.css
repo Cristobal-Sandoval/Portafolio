@@ -26,6 +26,39 @@ body {
   z-index: 10;
   display: flex;
   flex-direction: column;
+  max-height: calc(100vh - 50px);
+}
+
+.window > .window-body {
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+}
+
+/* Fix status-bar to match textarea width (xp.css sets margin: 0 1px, narrower by 2px) */
+.window .status-bar {
+  margin: 0;
+  flex-shrink: 0;
+}
+
+textarea.notepad-textarea,
+.notepad-textarea {
+  width: 100% !important;
+  height: 260px;
+  border: none !important;
+  resize: none;
+  font-family: Consolas, "Courier New", monospace !important;
+  font-size: 11px !important;
+  padding: 6px !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  line-height: 1.3;
+  background-color: #fff;
+}
+
+.notepad-textarea:focus,
+.notepad-textarea:focus-visible {
+  outline: 0 !important;
 }
 
 .window.active-window {
@@ -420,6 +453,56 @@ body {
   color: #fff;
 }
 
+.start-menu-subitem {
+  padding-left: 28px !important;
+}
+
+/* Flyout submenu estilo Windows XP */
+.start-menu-flyout {
+  position: absolute;
+  left: 200px;
+  top: 240px;
+  width: 180px;
+  background-color: #fff;
+  border: 1px solid #0055e0;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+  z-index: 10001;
+  padding: 2px;
+}
+
+.flyout-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 6px;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.flyout-item:hover {
+  background-color: #245edb;
+  color: #fff;
+}
+
+.flyout-item-icon {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.flyout-item-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.flyout-item-text {
+  font-size: 11px;
+  white-space: nowrap;
+}
+
 .all-programs-arrow {
   color: #387c24;
   font-size: 9px;
@@ -512,7 +595,9 @@ body {
 /* --- 4. EXPLORER LAYOUT (Sobre Mí) --- */
 .xp-explorer-layout {
   display: flex;
-  height: 340px;
+  flex-direction: row;
+  width: 100%;
+  height: 380px;
   border: 1px solid #7f9db9;
   background-color: #7aa1e6;
 }
@@ -670,7 +755,7 @@ body {
   gap: 20px;
   padding: 15px;
   background-color: #ffffff;
-  height: 260px;
+  height: 360px;
   overflow-y: auto;
 }
 
@@ -863,6 +948,7 @@ body {
   display: flex;
   gap: 12px;
   font-size: 11px;
+  margin: 0 3px;
 }
 
 .xp-menu-bar span {
@@ -873,19 +959,6 @@ body {
 .xp-menu-bar span:hover {
   background-color: #245edb;
   color: #fff;
-}
-
-.notepad-textarea {
-  width: 100%;
-  height: 280px;
-  border: none;
-  resize: none;
-  font-family: Consolas, "Courier New", monospace !important;
-  font-size: 12px !important;
-  padding: 8px !important;
-  line-height: 1.4;
-  outline: none;
-  background-color: #fff;
 }
 
 /* --- 7. CV PDF --- */
@@ -915,59 +988,165 @@ body {
   box-shadow: none !important;
 }
 
+.pdf-zoom-btn {
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 1;
+  padding: 1px 6px;
+  min-width: unset;
+  min-height: unset;
+  cursor: pointer;
+}
+
+#cv-zoom-label {
+  font-size: 11px;
+  min-width: 32px;
+  text-align: center;
+  display: inline-block;
+}
+
+.pdf-page.zoom-75  { max-width: 330px; }
+.pdf-page.zoom-100 { max-width: 440px; }
+.pdf-page.zoom-125 { max-width: 550px; }
+.pdf-page.zoom-150 { max-width: 660px; }
+
 .pdf-page-preview {
   background-color: #525659;
-  padding: 10px;
-  height: 290px;
+  padding: 15px;
+  height: 380px;
   overflow-y: auto;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
 }
 
 .pdf-page {
   background-color: #fff;
   width: 100%;
   max-width: 440px;
-  padding: 20px;
+  min-height: 580px;
+  padding: 20px 24px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
   font-family: Arial, sans-serif;
   color: #333;
+  display: flex;
+  flex-direction: column;
+}
+
+.cv-title-area {
+  text-align: center;
+  margin-bottom: 8px;
 }
 
 .cv-header {
-  font-size: 16px;
-  color: #2b5b84;
-  margin-bottom: 2px;
-  font-family: Arial, sans-serif !important;
+  font-size: 15px !important;
+  color: #111 !important;
+  font-weight: bold;
+  margin: 0 0 2px 0 !important;
+  text-transform: none !important;
+  border-bottom: none !important;
+  padding-bottom: 0 !important;
 }
 
 .cv-sub {
-  font-size: 9px;
-  color: #777;
+  font-size: 9px !important;
+  color: #555 !important;
+  margin: 0 0 6px 0 !important;
+  font-weight: bold;
+}
+
+.cv-contacts {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 8px;
+  color: #666;
+  border-bottom: 1.5px solid #2b5b84;
+  padding-bottom: 6px;
   margin-bottom: 6px;
 }
 
-.pdf-page hr {
-  border: 0;
-  border-top: 1.5px solid #2b5b84;
-  margin-bottom: 10px;
+.cv-section-title {
+  background-color: #eef1f5;
+  color: #2b5b84;
+  font-weight: bold;
+  text-align: center;
+  font-size: 9.5px;
+  padding: 3px 0;
+  margin: 8px 0 6px 0;
+  text-transform: uppercase;
+  font-family: Arial, sans-serif;
+  letter-spacing: 0.5px;
 }
 
-.pdf-page h3 {
-  font-size: 10px;
-  color: #2b5b84;
-  margin-top: 8px;
-  margin-bottom: 3px;
-  font-family: Arial, sans-serif !important;
-  text-transform: uppercase;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 2px;
+.cv-job, .cv-edu {
+  margin-bottom: 6px;
+  width: 100%;
+}
+
+.cv-job-header, .cv-edu-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  color: #111;
+  font-weight: bold;
+}
+
+.cv-job-date, .cv-edu-date {
+  font-size: 8px;
+  color: #555;
+  font-weight: bold;
+}
+
+.cv-job-loc {
+  font-size: 8px;
+  color: #666;
+  font-style: italic;
+  margin-bottom: 2px;
+}
+
+.cv-bullets {
+  padding-left: 12px;
+  margin: 2px 0;
+}
+
+.cv-bullets li {
+  font-size: 8.5px;
+  line-height: 1.3;
+  margin-bottom: 2px;
+  color: #333;
+}
+
+.cv-certs-grid {
+  display: flex;
+  gap: 15px;
+}
+
+.cv-cert-col {
+  flex: 1;
+}
+
+.cv-cert-col strong {
+  font-size: 9px;
+  color: #111;
 }
 
 .cv-p {
-  font-size: 9px;
+  font-size: 8.5px;
   line-height: 1.3;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
+}
+
+.cv-footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 7.5px;
+  color: #888;
+  border-top: 1px solid #eee;
+  padding-top: 4px;
+  margin-top: auto;
 }
 
 /* --- 8. MSN MESSENGER (Contáctame) --- */
@@ -1023,7 +1202,7 @@ body {
   border: 1px solid #7f9db9;
   height: 180px;
   overflow-y: auto;
-  padding: 8px;
+  padding: 8px 10px;
   font-size: 11px;
   display: flex;
   flex-direction: column;
@@ -1031,9 +1210,10 @@ body {
 }
 
 .msn-system-msg {
-  color: #888;
-  font-size: 9px;
+  color: #777;
+  font-size: 10px;
   text-align: center;
+  margin-bottom: 2px;
 }
 
 .msn-msg {
@@ -1065,36 +1245,6 @@ body {
   display: flex;
   flex-direction: column;
   gap: 4px;
-}
-
-.msn-textarea {
-  width: 100%;
-  height: 45px;
-  border: 1px solid #7f9db9;
-  resize: none;
-  font-size: 11px;
-  padding: 4px;
-  outline: none;
-}
-
-.msn-button-row {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.msn-send-btn {
-  background-color: #fdfdfb;
-  border: 1px solid #7f9db9;
-  font-size: 11px;
-  padding: 2px 12px;
-  cursor: pointer;
-  min-height: unset;
-  min-width: unset;
-}
-
-.msn-send-btn:hover {
-  background-color: #eaf2fb;
-  box-shadow: none !important;
 }
 
 /* --- 9. PROPIEDADES DE PANTALLA --- */
@@ -1169,12 +1319,31 @@ body {
   background-color: #fff;
 }
 
-.wallpaper-select-list {
+.wallpaper-custom-list {
   width: 100%;
-  border: none;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   outline: none;
+}
+
+.wallpaper-list-item {
   font-size: 11px;
-  height: 70px;
+  padding: 3px 6px;
+  cursor: pointer;
+  color: #000;
+  background-color: #fff;
+  border-bottom: 1px solid #e0e0e0;
+  user-select: none;
+}
+
+.wallpaper-list-item:hover {
+  background-color: #e8f0fe;
+}
+
+.wallpaper-list-item.selected {
+  background-color: #0b61ce;
+  color: #fff;
 }
 
 .wallpaper-actions {
@@ -1294,13 +1463,14 @@ body {
   box-shadow: none !important;
 }
 
-/* --- 12. OPTIMIZACIONES RESPONSIVE (Móviles / Teléfonos) --- */
+/* --- 12. OPTIMIZACIONES RESPONSIVE --- */
+
+/* Móviles (hasta 480px) y tablets pequeñas (hasta 768px) */
 @media (max-width: 768px) {
-  /* Distribución Escritorio */
   #desktop {
     padding: 10px;
     gap: 8px;
-    align-content: center;
+    align-content: flex-start;
   }
 
   .desktop-icon {
@@ -1318,13 +1488,17 @@ body {
     max-height: 2.4em;
   }
 
-  /* Ajustar Ventanas en Móvil */
   .window {
     width: 96vw !important;
     left: 2vw !important;
     top: 15px !important;
-    height: calc(100vh - 75px) !important;
-    max-height: none !important;
+    height: auto !important;
+    max-height: calc(100vh - 60px) !important;
+  }
+
+  .window > .window-body {
+    max-height: calc(100vh - 110px) !important;
+    overflow-y: auto !important;
   }
 
   .window.maximized {
@@ -1336,16 +1510,20 @@ body {
 
   .xp-explorer-layout {
     flex-direction: column;
-    height: calc(100vh - 170px) !important;
+    height: auto !important;
+    min-height: 300px;
+    max-height: calc(100vh - 170px) !important;
   }
 
   .xp-explorer-sidebar {
     width: 100% !important;
-    height: 100px !important;
+    height: auto !important;
+    min-height: 80px;
     flex-direction: row !important;
     gap: 6px;
     overflow-x: auto;
     overflow-y: hidden;
+    flex-shrink: 0;
   }
 
   .xp-explorer-sidebar details {
@@ -1358,27 +1536,33 @@ body {
   }
 
   .xp-explorer-content {
-    height: calc(100% - 100px) !important;
+    flex: 1;
+    min-height: 200px;
+    overflow-y: auto !important;
   }
 
-  /* Bloc de notas y PDF previews en móvil */
   .notepad-textarea {
-    height: calc(100vh - 190px) !important;
+    height: auto !important;
+    min-height: 200px;
+    max-height: calc(100vh - 190px) !important;
   }
 
   .pdf-page-preview {
-    height: calc(100vh - 210px) !important;
+    height: auto !important;
+    min-height: 250px;
+    max-height: calc(100vh - 210px) !important;
   }
 
   .pdf-page {
     padding: 12px;
   }
 
-  /* Ajustar grilla de videos en móviles */
   .explorer-folder-grid {
     grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)) !important;
     gap: 12px !important;
-    height: calc(100vh - 210px) !important;
+    height: auto !important;
+    min-height: 200px;
+    max-height: calc(100vh - 210px) !important;
   }
 
   .video-item {
@@ -1424,11 +1608,6 @@ body {
     font-size: 6px !important;
   }
 
-  .msn-chat-history {
-    height: calc(100vh - 260px) !important;
-  }
-
-  /* Barra de Tareas en Móvil */
   #active-tasks {
     padding: 0 4px;
     gap: 3px;
@@ -1452,11 +1631,7 @@ body {
   }
 
   #start-button {
-    padding: 0 10px 0 8px;
-  }
-  
-  #start-button .start-text {
-    display: none;
+    padding: 0 10px;
   }
 
   #system-tray {
@@ -1468,7 +1643,6 @@ body {
     display: none;
   }
 
-  /* Menú de Inicio en Móvil */
   #start-menu {
     width: 100vw !important;
     bottom: 40px !important;
@@ -1498,6 +1672,84 @@ body {
   
   .xp-projects-sidebar {
     display: none !important;
+  }
+
+  #win-contact {
+    width: 96vw !important;
+  }
+
+  .msn-grid-col-3 {
+    display: none !important;
+  }
+
+  .msn-toolbar {
+    overflow-x: auto;
+    white-space: nowrap;
+    gap: 8px;
+  }
+
+  .msn-tb-btn {
+    flex-shrink: 0;
+  }
+
+  .msn-window-body {
+    padding: 6px !important;
+  }
+
+  #msn-chat-history {
+    height: auto !important;
+    min-height: 100px;
+    max-height: 160px !important;
+  }
+
+  .msn-format-bar {
+    padding: 2px 6px !important;
+    gap: 6px !important;
+  }
+
+  .msn-fmt-text-btn {
+    font-size: 10px !important;
+  }
+
+  #msn-input-box {
+    height: 40px !important;
+    font-size: 13px !important;
+  }
+
+  .msn-send-btn {
+    height: 32px !important;
+    font-size: 13px !important;
+  }
+
+  .properties-tabs menu {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .wallpaper-selection-layout {
+    flex-direction: column;
+  }
+
+  .shutdown-dialog {
+    width: 85vw;
+    margin: 0 10px;
+  }
+}
+
+/* Tablets (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  #win-projects {
+    width: 95vw !important;
+    left: 2.5vw !important;
+  }
+
+  .xp-projects-sidebar {
+    width: 180px !important;
+  }
+
+  .explorer-folder-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 15px;
   }
 }
 
@@ -1605,12 +1857,7 @@ body {
   border-top: 10px solid #ffffe1;
 }
 
-.xp-explorer-layout {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  height: 100%;
-}
+
 
 /* Barra lateral de detalles en Mis Proyectos (Estilo Windows XP Explorer) */
 .xp-projects-sidebar {
@@ -1772,39 +2019,6 @@ body {
   margin-left: 2px;
 }
 
-.msn-tb-mid-icons {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  background: rgba(255,255,255,0.25);
-  border: 1px solid rgba(0,60,180,0.15);
-  border-radius: 12px;
-  padding: 2px 6px;
-  margin-left: 8px;
-}
-
-.msn-tb-circle-btn {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: #ffffff;
-  border: 1px solid #9dc2f7;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0.5px 0.5px 1px rgba(0,0,0,0.1);
-}
-
-.msn-tb-circle-btn:hover {
-  background: #f0f5ff;
-  border-color: #3b7cf3;
-}
-
-.msn-tb-circle-btn svg {
-  vertical-align: middle;
-}
-
 .msn-tb-btn {
   display: flex;
   flex-direction: column;
@@ -1880,13 +2094,6 @@ body {
   justify-content: stretch;
 }
 
-.msn-grid-col-2 {
-  width: 75px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end; /* Alinear los botones enviar/buscar al fondo de la fila */
-}
-
 .msn-grid-col-3 {
   width: 100px;
   display: flex;
@@ -1895,10 +2102,6 @@ body {
 
 .row-chat .msn-grid-col-3 {
   align-items: flex-start; /* Alinear avatar de Cristóbal al tope */
-}
-
-.row-format .msn-grid-col-3 {
-  align-items: center; /* Alinear divisor central de avatares */
 }
 
 .row-input .msn-grid-col-3 {
@@ -1955,26 +2158,6 @@ body {
   margin: 0 10px;
 }
 
-/* Chat History */
-.msn-chat-history {
-  height: 180px;
-  border: none;
-  background-color: #FFF;
-  overflow-y: auto;
-  padding: 8px 10px;
-  font-size: 11px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.msn-system-msg {
-  color: #777;
-  font-size: 10px;
-  text-align: center;
-  margin-bottom: 2px;
-}
-
 .msn-msg {
   display: flex;
   flex-direction: column;
@@ -1996,6 +2179,16 @@ body {
   word-break: break-word;
 }
 
+.msn-input-box-wrapper {
+  border: 1px solid #7fa9f5;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05);
+}
+
 /* Format Bar */
 .msn-format-bar {
   display: flex;
@@ -2003,9 +2196,9 @@ body {
   gap: 12px;
   padding: 4px 10px;
   background: linear-gradient(180deg, #f3f8fe 0%, #dbf0fe 40%, #c4e3fd 100%);
-  border: 1px solid #7fa9f5;
-  border-bottom: none;
-  border-radius: 8px 8px 0 0;
+  border: none;
+  border-bottom: 1px solid #cbdcfc;
+  border-radius: 0;
 }
 
 .msn-fmt-text-btn {
@@ -2041,8 +2234,8 @@ body {
 
 /* Input Area */
 .msn-input-container {
-  border: 1px solid #7fa9f5;
-  border-radius: 0 0 8px 8px;
+  border: none;
+  border-radius: 0;
   background: #fff;
   display: flex;
   flex-direction: column;
@@ -2072,13 +2265,6 @@ body {
   gap: 6px;
 }
 
-.msn-buttons-column {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  width: 75px;
-}
-
 .msn-send-btn {
   height: 26px;
   background: linear-gradient(180deg, #ffffff 0%, #e2e1da 100%);
@@ -2099,36 +2285,7 @@ body {
   border-color: #807f7a;
 }
 
-.msn-search-btn {
-  height: 21px;
-  background: linear-gradient(180deg, #ffffff 0%, #e8e7e1 100%);
-  border: 1px solid #c0bfb9;
-  border-radius: 4px;
-  font-size: 10px;
-  cursor: pointer;
-  color: #555;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: inset 1px 1px 0 #fff;
-}
-
-.msn-search-btn:hover {
-  background: linear-gradient(180deg, #ffffff 0%, #d5d3cc 100%);
-  border-color: #807f7a;
-}
-
 /* Avatares (Display Pictures) */
-.msn-chat-right {
-  width: 106px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 4px 0;
-}
-
 .msn-avatar-box {
   position: relative;
   width: 98px;
@@ -2199,45 +2356,6 @@ body {
   color: #245edb;
 }
 
-.msn-right-divider {
-  width: 70px;
-  height: 1px;
-  background-color: #cbdcfc;
-}
-
-/* Banner de Publicidad MSN */
-.msn-ad-banner {
-  margin-top: 6px;
-  background-color: #FFF;
-  border: 1px solid #a3c2f2;
-  border-radius: 4px;
-  height: 22px;
-  padding: 0 10px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  font-size: 11px;
-  font-family: Tahoma, sans-serif;
-  color: #4b6ebd;
-  box-shadow: inset 1px 1px 2px rgba(0,0,0,0.02);
-}
-
-.msn-ad-title {
-  color: #ee3c0c;
-  font-weight: bold;
-  border-right: 1px solid #cbdcfc;
-  padding-right: 8px;
-  font-family: Arial, sans-serif;
-  text-transform: uppercase;
-  font-size: 9px;
-  letter-spacing: 0.5px;
-}
-
-.msn-ad-text {
-  color: #555;
-  line-height: 1.2;
-}
-
 /* Animación de Zumbido (Shake effect) */
 .msn-shake {
   animation: shake-anim 0.4s ease-in-out;
@@ -2257,23 +2375,689 @@ body {
   100% { transform: translate(0, 0); }
 }
 
-/* Ocultar avatar y ad de MSN en móviles para ahorrar espacio */
-@media (max-width: 768px) {
-  #win-contact {
-    width: 96vw !important;
+@media print {
+  body * {
+    visibility: hidden !important;
   }
-  .msn-grid-col-3 {
+  #win-cv, #win-cv * {
+    visibility: visible !important;
+  }
+  #win-cv {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+  .pdf-toolbar, .title-bar, .status-bar, .title-bar-controls {
     display: none !important;
   }
-  .msn-ad-banner {
-    display: none !important;
+  .pdf-page-preview {
+    background-color: transparent !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    height: auto !important;
+    width: 100% !important;
   }
-  .msn-toolbar {
-    overflow-x: auto;
-    white-space: nowrap;
-    gap: 8px;
+  .pdf-page {
+    box-shadow: none !important;
+    page-break-after: always !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    border: none !important;
   }
-  .msn-tb-btn {
-    flex-shrink: 0;
-  }
+}
+
+/* ==========================================================================
+   WINAMP CLASSIC SKIN STYLING (AUTHENTIC DARK GRAY)
+   ========================================================================== */
+body .winamp-window {
+  background-color: #1a1a22 !important;
+  background-image: linear-gradient(180deg, #2a2a36 0%, #18181f 100%) !important;
+  border: 2px solid #0d0d12 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8) !important;
+  padding: 0 !important;
+  font-family: Arial, sans-serif !important;
+  user-select: none !important;
+  overflow: hidden !important;
+  border-radius: 4px !important;
+}
+
+/* Winamp Titlebar */
+body .winamp-window .winamp-titlebar {
+  background: linear-gradient(90deg, #181820 0%, #2d2d3e 50%, #181820 100%) !important;
+  height: 20px !important;
+  min-height: 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 0 6px !important;
+  cursor: move !important;
+  border-bottom: 1px solid #111 !important;
+  box-sizing: border-box !important;
+}
+
+body .winamp-window .winamp-title-icon {
+  display: flex !important;
+  align-items: center !important;
+  margin-right: 4px !important;
+}
+
+body .winamp-window .winamp-title-text {
+  background-color: transparent !important;
+  padding: 0 8px !important;
+  font-size: 9px !important;
+  font-weight: bold !important;
+  color: #fff !important;
+  letter-spacing: 2px !important;
+  font-family: Arial, sans-serif !important;
+  line-height: 14px !important;
+  height: 14px !important;
+  text-shadow: 1px 1px 2px #000 !important;
+}
+
+body .winamp-window .winamp-titlebar-controls {
+  display: flex !important;
+  gap: 3px !important;
+  align-items: center !important;
+}
+
+body .winamp-window .winamp-titlebar-controls button {
+  width: 10px !important;
+  height: 10px !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  border: 1px solid #111 !important;
+  background-color: #484660 !important;
+  background-image: none !important;
+  box-shadow: inset 1px 1px 0 rgba(255,255,255,0.15) !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 2px !important;
+}
+
+body .winamp-window .winamp-titlebar-controls button:active {
+  background-color: #201e30 !important;
+}
+
+body .winamp-window .winamp-btn-min::before {
+  content: "" !important;
+  display: block !important;
+  width: 5px !important;
+  height: 2px !important;
+  background: #fff !important;
+  margin-top: 1px !important;
+}
+
+body .winamp-window .winamp-btn-max::before {
+  content: "" !important;
+  display: block !important;
+  width: 5px !important;
+  height: 5px !important;
+  border: 1px solid #fff !important;
+  border-top-width: 2px !important;
+}
+
+body .winamp-window .winamp-btn-close::before {
+  content: "x" !important;
+  font-size: 7px !important;
+  color: #fff !important;
+  font-family: Arial, sans-serif !important;
+  font-weight: bold !important;
+  line-height: 8px !important;
+  display: block !important;
+}
+
+/* Chassis */
+body .winamp-window .winamp-chassis {
+  padding: 8px !important;
+  background: #1a1a22 !important;
+  border-top: 1px solid #2a2a36 !important;
+  box-sizing: border-box !important;
+}
+
+/* Display Container (Split Left/Right) */
+body .winamp-window .winamp-display-container {
+  display: flex !important;
+  background-color: #0a0a10 !important;
+  border: 2px solid #2a2a36 !important;
+  border-radius: 6px !important;
+  padding: 6px !important;
+  gap: 8px !important;
+  margin-bottom: 4px !important;
+  box-shadow: inset 1px 1px 8px rgba(0, 0, 0, 0.95) !important;
+  box-sizing: border-box !important;
+}
+
+/* Left Display Panel */
+body .winamp-window .winamp-display-left {
+  width: 82px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 2px !important;
+}
+
+body .winamp-window .winamp-status-indicators {
+  height: 8px !important;
+  font-size: 7px !important;
+  font-family: monospace !important;
+  color: #222 !important;
+}
+
+body .winamp-window .status-indicator {
+  color: #00ff00 !important;
+  text-shadow: 0 0 2px #00ff00 !important;
+}
+
+body .winamp-window .status-indicator.hidden {
+  display: none !important;
+}
+
+body .winamp-window .winamp-time-display {
+  font-size: 12px !important;
+  font-weight: bold !important;
+  letter-spacing: 0.5px !important;
+  color: #00ff00 !important;
+  text-shadow: 0 0 6px rgba(0, 255, 0, 0.7), 0 0 2px rgba(0, 200, 0, 0.5) !important;
+  font-family: 'Courier New', Courier, monospace !important;
+  line-height: 1 !important;
+  margin-bottom: 2px !important;
+  background: #050508 !important;
+  padding: 1px 2px !important;
+  border-radius: 2px !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+body .winamp-window .winamp-visualizer-box {
+  width: 76px !important;
+  height: 16px !important;
+  background-color: #000 !important;
+  border: 1px solid #1c1a2e !important;
+  overflow: hidden !important;
+  border-radius: 2px !important;
+}
+
+/* Right Display Panel */
+body .winamp-window .winamp-display-right {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+  overflow: hidden !important;
+}
+
+body .winamp-window .winamp-ticker-container {
+  height: 14px !important;
+  overflow: hidden !important;
+  position: relative !important;
+  background: #000 !important;
+  border: 1px solid #1a1a2e !important;
+  border-radius: 2px !important;
+}
+
+body .winamp-window .winamp-ticker-text {
+  font-size: 9px !important;
+  white-space: nowrap !important;
+  position: absolute !important;
+  font-weight: bold !important;
+  color: #00ff00 !important;
+  text-shadow: 0 0 1px rgba(0, 255, 0, 0.4) !important;
+  line-height: 12px !important;
+}
+
+body .winamp-window .winamp-ticker-text span {
+  color: #00ff00 !important;
+}
+
+body .winamp-window .winamp-audio-info {
+  display: flex !important;
+  font-size: 8px !important;
+  color: #8c8c9e !important;
+  align-items: center !important;
+  gap: 2px !important;
+  line-height: 1 !important;
+}
+
+body .winamp-window .info-bitrate, 
+body .winamp-window .info-samplerate {
+  color: #00ff00 !important;
+  font-weight: bold !important;
+}
+
+body .winamp-window .info-label {
+  margin-right: 3px !important;
+}
+
+body .winamp-window .info-channels {
+  margin-left: auto !important;
+  display: flex !important;
+  gap: 3px !important;
+  font-weight: bold !important;
+}
+
+body .winamp-window .info-channels span {
+  color: #2c2c3e !important;
+}
+
+body .winamp-window .info-channels span.active {
+  color: #00ff00 !important;
+  text-shadow: 0 0 1px rgba(0, 255, 0, 0.4) !important;
+}
+
+/* Sliders & Toggles Row */
+body .winamp-window .winamp-sliders-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  justify-content: space-between !important;
+}
+
+body .winamp-window .winamp-slider-mini-container {
+  display: flex !important;
+  align-items: center !important;
+  background-color: #000 !important;
+  border: 1px solid #333 !important;
+  padding: 1px 3px !important;
+  height: 11px !important;
+  border-radius: 2px !important;
+  box-sizing: border-box !important;
+}
+
+body .winamp-window .balance-mini {
+  background: #1c1a2e !important;
+}
+
+body .winamp-window .slider-mini-label {
+  font-size: 7px !important;
+  font-weight: bold !important;
+  color: #aaa !important;
+  margin-right: 3px !important;
+  line-height: 1 !important;
+}
+
+body .winamp-window input[type="range"].winamp-slider-mini {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  width: 100% !important;
+  height: 2px !important;
+  background: #333 !important;
+  border: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+}
+
+body .winamp-window input[type="range"].winamp-slider-mini::-webkit-slider-thumb {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  width: 8px !important;
+  height: 8px !important;
+  background: radial-gradient(circle, #ffffff 0%, #b0b0c0 100%) !important;
+  border: 1px solid #111 !important;
+  border-radius: 50% !important;
+  cursor: pointer !important;
+  margin-top: -3px !important;
+}
+
+body .winamp-window input[type="range"].winamp-slider-mini::-moz-range-thumb {
+  width: 8px !important;
+  height: 8px !important;
+  background: radial-gradient(circle, #ffffff 0%, #b0b0c0 100%) !important;
+  border: 1px solid #111 !important;
+  border-radius: 50% !important;
+  cursor: pointer !important;
+}
+
+/* EQ / PL Buttons */
+body .winamp-window .winamp-toggle-buttons {
+  display: flex !important;
+  gap: 2px !important;
+}
+
+body .winamp-window .winamp-toggle-btn {
+  font-size: 7px !important;
+  font-weight: bold !important;
+  color: #8c8c9e !important;
+  background: linear-gradient(180deg, #3a3a46 0%, #1a1a24 100%) !important;
+  border: 1px solid #0d0d12 !important;
+  box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.08) !important;
+  padding: 2px 5px !important;
+  cursor: pointer !important;
+  border-radius: 10px !important;
+  line-height: 1 !important;
+  min-width: 0 !important;
+}
+
+body .winamp-window .winamp-toggle-btn.active {
+  color: #00ff00 !important;
+  text-shadow: 0 0 3px #00ff00 !important;
+  background: linear-gradient(180deg, #0a2a0a 0%, #030d03 100%) !important;
+}
+
+/* Progress Slider */
+body .winamp-window .winamp-progress-row {
+  display: flex !important;
+  align-items: center !important;
+  background: #000 !important;
+  border: 1px solid #3c3c4a !important;
+  height: 8px !important;
+  position: relative !important;
+  box-sizing: border-box !important;
+  border-radius: 4px !important;
+}
+
+body .winamp-window input[type="range"].winamp-progress-slider {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  width: 100% !important;
+  height: 4px !important;
+  background: linear-gradient(90deg, #00ff00 0%, #ffff00 80%, #ff0000 100%) !important;
+  border: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  border-radius: 2px !important;
+  outline: none !important;
+}
+
+body .winamp-window input[type="range"].winamp-progress-slider::-webkit-slider-thumb {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  width: 18px !important;
+  height: 8px !important;
+  background: linear-gradient(180deg, #ffffff 0%, #b8b8c8 40%, #686878 100%) !important;
+  border: 1px solid #000 !important;
+  box-shadow: inset 1px 1px 1px #fff !important;
+  cursor: pointer !important;
+  margin-top: -2px !important;
+  border-radius: 4px !important;
+}
+
+body .winamp-window input[type="range"].winamp-progress-slider::-moz-range-track {
+  height: 4px !important;
+  background: linear-gradient(90deg, #00ff00 0%, #ffff00 80%, #ff0000 100%) !important;
+  border-radius: 2px !important;
+}
+
+body .winamp-window input[type="range"].winamp-progress-slider::-moz-range-thumb {
+  width: 18px !important;
+  height: 8px !important;
+  background: linear-gradient(180deg, #ffffff 0%, #b8b8c8 40%, #686878 100%) !important;
+  border: 1px solid #000 !important;
+  box-shadow: inset 1px 1px 1px #fff !important;
+  cursor: pointer !important;
+  border-radius: 4px !important;
+}
+
+/* Bottom controls panel (Circular Silver Buttons) */
+body .winamp-window .winamp-bottom-controls {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 4px !important;
+  background: linear-gradient(180deg, #2a2a36 0%, #18181f 100%) !important;
+  padding: 4px !important;
+  border: 1px solid #0d0d12 !important;
+  border-radius: 4px !important;
+  box-sizing: border-box !important;
+}
+
+body .winamp-window .winamp-playback-buttons {
+  display: flex !important;
+  gap: 2px !important;
+}
+
+body .winamp-window .winamp-ctrl-btn {
+  width: 18px !important;
+  height: 18px !important;
+  min-width: 18px !important;
+  min-height: 18px !important;
+  background: radial-gradient(circle at 35% 35%, #ffffff 0%, #c8c8d8 40%, #70707c 85%, #40404a 100%) !important;
+  border: 1px solid #111 !important;
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.5), inset 1px 1px 0 rgba(255,255,255,0.4) !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 50% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+body .winamp-window .winamp-ctrl-btn:active {
+  background: radial-gradient(circle at 35% 35%, #70707c 0%, #40404a 80%) !important;
+  box-shadow: inset 1px 1px 2px rgba(0,0,0,0.8) !important;
+}
+
+body .winamp-window .winamp-ctrl-btn.prev::before {
+  content: "" !important;
+  border-top: 3px solid transparent !important;
+  border-bottom: 3px solid transparent !important;
+  border-right: 4px solid #111 !important;
+  display: inline-block !important;
+  margin-right: -1px !important;
+}
+body .winamp-window .winamp-ctrl-btn.prev::after {
+  content: "" !important;
+  border-top: 3px solid transparent !important;
+  border-bottom: 3px solid transparent !important;
+  border-right: 4px solid #111 !important;
+  display: inline-block !important;
+}
+
+body .winamp-window .winamp-ctrl-btn.play::before {
+  content: "" !important;
+  border-top: 4px solid transparent !important;
+  border-bottom: 4px solid transparent !important;
+  border-left: 6px solid #10a010 !important;
+  display: inline-block !important;
+}
+
+body .winamp-window .winamp-ctrl-btn.pause::before {
+  content: "" !important;
+  width: 2px !important;
+  height: 6px !important;
+  background-color: #111 !important;
+  display: inline-block !important;
+  margin-right: 1px !important;
+}
+body .winamp-window .winamp-ctrl-btn.pause::after {
+  content: "" !important;
+  width: 2px !important;
+  height: 6px !important;
+  background-color: #111 !important;
+  display: inline-block !important;
+}
+
+body .winamp-window .winamp-ctrl-btn.stop::before {
+  content: "" !important;
+  width: 5px !important;
+  height: 5px !important;
+  background-color: #a01010 !important;
+  display: inline-block !important;
+}
+
+body .winamp-window .winamp-ctrl-btn.next::before {
+  content: "" !important;
+  border-top: 3px solid transparent !important;
+  border-bottom: 3px solid transparent !important;
+  border-left: 4px solid #111 !important;
+  display: inline-block !important;
+}
+body .winamp-window .winamp-ctrl-btn.next::after {
+  content: "" !important;
+  border-top: 3px solid transparent !important;
+  border-bottom: 3px solid transparent !important;
+  border-left: 4px solid #111 !important;
+  display: inline-block !important;
+  margin-left: -1px !important;
+}
+
+body .winamp-window .winamp-ctrl-btn.eject::before {
+  content: "⏏" !important;
+  font-size: 7px !important;
+  color: #111 !important;
+  font-weight: bold !important;
+}
+
+/* Extra controls (Shuffle & Repeat) */
+body .winamp-window .winamp-extra-toggles {
+  display: flex !important;
+  gap: 2px !important;
+}
+
+body .winamp-window .winamp-extra-btn {
+  font-size: 7px !important;
+  font-weight: bold !important;
+  color: #aaa !important;
+  background: linear-gradient(180deg, #3a3a46 0%, #1a1a24 100%) !important;
+  border: 1px solid #0d0d12 !important;
+  padding: 2px 4px !important;
+  cursor: pointer !important;
+  border-radius: 6px !important;
+  min-width: 0 !important;
+  box-shadow: inset 1px 1px 0 rgba(255,255,255,0.1) !important;
+}
+
+body .winamp-window .winamp-extra-btn.active {
+  color: #00ff00 !important;
+  text-shadow: 0 0 3px #00ff00 !important;
+  background: linear-gradient(180deg, #0a2a0a 0%, #030d03 100%) !important;
+}
+
+body .winamp-window .winamp-logo-corner {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 2px !important;
+}
+
+/* Playlist Editor */
+body .winamp-window .winamp-playlist-editor {
+  background-color: #0a0a10 !important;
+  border: 2px solid #0d0d12 !important;
+  box-shadow: inset 1px 1px 0 rgba(255,255,255,0.03), inset -1px -1px 0 #000 !important;
+  padding: 6px !important;
+  margin-top: 2px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  box-sizing: border-box !important;
+  border-radius: 4px !important;
+}
+
+body .winamp-window .playlist-title {
+  font-size: 9px !important;
+  font-weight: bold !important;
+  color: #00ff00 !important;
+  letter-spacing: 1px !important;
+  font-family: Arial, sans-serif !important;
+  text-align: center !important;
+  background-color: #0d0d12 !important;
+  padding: 4px 0 !important;
+  border-bottom: 1px solid #1a1a26 !important;
+  border-radius: 2px !important;
+  text-shadow: 0 0 4px rgba(0,255,0,0.3) !important;
+}
+
+body .winamp-window .playlist-tracks {
+  max-height: 110px !important;
+  overflow-y: auto !important;
+  padding: 2px 0 !important;
+  background-color: #050508 !important;
+  border: 1px solid #1a1a26 !important;
+  margin: 6px 0 !important;
+  box-sizing: border-box !important;
+  border-radius: 2px !important;
+}
+
+body .winamp-window .playlist-tracks::-webkit-scrollbar {
+  width: 8px !important;
+}
+body .winamp-window .playlist-tracks::-webkit-scrollbar-track {
+  background: #000 !important;
+}
+body .winamp-window .playlist-tracks::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #484660 0%, #252335 100%) !important;
+  border: 1px solid #000 !important;
+  border-radius: 2px !important;
+}
+
+body .winamp-window .playlist-track-item {
+  display: flex !important;
+  justify-content: space-between !important;
+  padding: 3px 8px !important;
+  font-size: 9.5px !important;
+  font-family: 'Courier New', Courier, monospace !important;
+  color: #00ff00 !important; /* Green tracks */
+  cursor: pointer !important;
+}
+
+body .winamp-window .playlist-track-item:hover {
+  background-color: #101025 !important;
+  color: #ffffff !important;
+}
+
+body .winamp-window .playlist-track-item.active {
+  background-color: #001f5c !important; /* Premium Blue active song */
+  color: #ffffff !important;
+  font-weight: bold !important;
+}
+
+body .winamp-window .playlist-footer {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 4px 2px 2px 2px !important;
+  border-top: 1px solid #1a1a26 !important;
+  box-sizing: border-box !important;
+}
+
+body .winamp-window .playlist-footer-btns {
+  display: flex !important;
+  gap: 3px !important;
+}
+
+body .winamp-window .pl-footer-btn {
+  font-size: 8px !important;
+  font-weight: bold !important;
+  color: #000 !important;
+  background: linear-gradient(180deg, #ffffff 0%, #d8d8e8 40%, #9090a0 100%) !important;
+  border: 1px solid #111 !important;
+  padding: 2px 8px !important;
+  cursor: pointer !important;
+  border-radius: 10px !important;
+  min-width: 0 !important;
+  line-height: 1 !important;
+  box-shadow: 1px 1px 1px rgba(0,0,0,0.3) !important;
+}
+
+body .winamp-window .pl-footer-btn:active {
+  background: linear-gradient(180deg, #9090a0 0%, #d8d8e8 100%) !important;
+}
+
+body .winamp-window .pl-footer-btn.opts {
+  border-radius: 10px !important;
+}
+
+body .winamp-window .playlist-footer-time {
+  font-size: 8px !important;
+  color: #00ff00 !important;
+  font-family: monospace !important;
+  background-color: #000 !important;
+  border: 1px solid #2d2b45 !important;
+  padding: 2px 6px !important;
+  box-sizing: border-box !important;
+  border-radius: 2px !important;
 }

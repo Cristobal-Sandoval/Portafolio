@@ -63,7 +63,9 @@ document.addEventListener("DOMContentLoaded", () => {
     desktop.style.backgroundSize = "cover";
   }
   if (wallpaperSelect) {
-    wallpaperSelect.value = savedWallpaper;
+    wallpaperSelect.querySelectorAll(".wallpaper-list-item").forEach(item => {
+      item.classList.toggle("selected", item.getAttribute("data-value") === savedWallpaper);
+    });
   }
   if (crtScreenPreview && wallpaperBackgrounds[savedWallpaper]) {
     crtScreenPreview.style.backgroundImage = wallpaperBackgrounds[savedWallpaper];
@@ -71,7 +73,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Detect mobile device
-  const isMobile = window.matchMedia("(max-width: 768px)").matches;
+  const mobileMedia = window.matchMedia("(max-width: 768px)");
+  let isMobile = mobileMedia.matches;
+  mobileMedia.addEventListener("change", (e) => {
+    isMobile = e.matches;
+  });
 
   // Initialize Window Registry
   windowsList.forEach(win => {
@@ -125,29 +131,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (aboutWin && projectsWin && contactWin) {
       if (!isMobile) {
-        // Mi Información (Bio) - Superior izquierda
+        const vw = window.innerWidth;
+
         aboutWin.style.top = "40px";
         aboutWin.style.left = "60px";
-        aboutWin.style.width = "440px";
+        aboutWin.style.width = "620px";
         aboutWin.style.height = "auto";
-        
-        // Mis Proyectos - Derecha (amplia y alineada con la barra de tareas)
-        projectsWin.style.top = "40px";
-        projectsWin.style.left = "530px";
-        projectsWin.style.width = "760px";
+
+        if (vw < 1400) {
+          projectsWin.style.top = "40px";
+          projectsWin.style.left = "520px";
+          projectsWin.style.width = `${Math.min(760, vw - 550)}px`;
+        } else {
+          projectsWin.style.top = "40px";
+          projectsWin.style.left = "530px";
+          projectsWin.style.width = "760px";
+        }
         projectsWin.style.height = "480px";
-        
-        // MSN Messenger - Abajo al centro/izquierda
+
         contactWin.style.top = "380px";
         contactWin.style.left = "120px";
         contactWin.style.width = "550px";
         contactWin.style.height = "auto";
       }
 
-      // Abrir las tres ventanas ordenadamente al iniciar (Mi Información, Proyectos, Contacto)
-      openWindowWithoutClickSound("win-contact");
-      openWindowWithoutClickSound("win-projects");
-      openWindowWithoutClickSound("win-about");
+      if (isMobile) {
+        openWindowWithoutClickSound("win-about");
+      } else {
+        openWindowWithoutClickSound("win-contact");
+        openWindowWithoutClickSound("win-projects");
+        openWindowWithoutClickSound("win-about");
+      }
     }
   }
 
@@ -200,6 +214,7 @@ document.addEventListener("DOMContentLoaded", () => {
     startMenu.classList.add("hidden");
     startButton?.classList.remove("active");
     startButton?.setAttribute("aria-expanded", "false");
+    if (allProgsFlyout) allProgsFlyout.classList.add("hidden");
     contextMenu.classList.add("hidden");
     desktopIcons.forEach(icon => icon.classList.remove("selected"));
   });
@@ -330,10 +345,17 @@ document.addEventListener("DOMContentLoaded", () => {
       const winId = win.id;
       const state = windowRegistry[winId];
 
-      if (!win.classList.contains("hidden") || !state.minimized) {
-        const titleText = win.querySelector(".title-bar-text").textContent.trim();
-        const titleIconImg = win.querySelector(".win-title-icon");
-        const iconSrc = titleIconImg ? titleIconImg.getAttribute("src") : "";
+      if (!win.classList.contains("hidden") && !state.minimized) {
+        const titleTextEl = win.querySelector(".title-bar-text") || win.querySelector(".winamp-title-text");
+        const titleText = titleTextEl ? titleTextEl.textContent.trim() : "Ventana";
+        
+        let iconSrc = "";
+        if (winId === "win-winamp") {
+          iconSrc = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' fill='%231e1e24'/><path d='M9 2L4 9h3v5l5-7H9z' fill='%23ffea00'/></svg>";
+        } else {
+          const titleIconImg = win.querySelector(".win-title-icon");
+          iconSrc = titleIconImg ? titleIconImg.getAttribute("src") : "";
+        }
 
         const btn = document.createElement("button");
         btn.className = "task-item";
@@ -391,91 +413,64 @@ document.addEventListener("DOMContentLoaded", () => {
     if (closeBtn) closeBtn.addEventListener("click", () => closeWindow(winId));
   });
 
-  // --- 6. ARRASTRE DE VENTANAS (MOUSE & TOUCH) ---
+  // --- 6. ARRASTRE DE VENTANAS (MOUSE & TOUCH UNIFICADO) ---
+  function initDrag(win, startClientX, startClientY) {
+    if (windowRegistry[win.id].maximized) return;
+    focusWindow(win.id);
+
+    let startX = startClientX;
+    let startY = startClientY;
+    let initialLeft = parseInt(win.style.left) || 0;
+    let initialTop = parseInt(win.style.top) || 0;
+
+    function moveHandler(dx, dy) {
+      let newLeft = initialLeft + dx;
+      let newTop = initialTop + dy;
+      const winWidth = win.offsetWidth;
+      const minLeft = -winWidth / 2;
+      const maxLeft = window.innerWidth - (winWidth / 2);
+      const minTop = 0;
+      const maxTop = window.innerHeight - 40;
+      newLeft = Math.max(minLeft, Math.min(maxLeft, newLeft));
+      newTop = Math.max(minTop, Math.min(maxTop, newTop));
+      win.style.left = `${newLeft}px`;
+      win.style.top = `${newTop}px`;
+    }
+
+    function onMouseMove(e) { moveHandler(e.clientX - startX, e.clientY - startY); }
+    function onMouseUp() {
+      document.removeEventListener("mousemove", onMouseMove);
+      document.removeEventListener("mouseup", onMouseUp);
+    }
+    function onTouchMove(e) {
+      const t = e.touches[0];
+      moveHandler(t.clientX - startX, t.clientY - startY);
+    }
+    function onTouchEnd() {
+      document.removeEventListener("touchmove", onTouchMove);
+      document.removeEventListener("touchend", onTouchEnd);
+    }
+
+    document.addEventListener("mousemove", onMouseMove);
+    document.addEventListener("mouseup", onMouseUp);
+    document.addEventListener("touchmove", onTouchMove, { passive: true });
+    document.addEventListener("touchend", onTouchEnd);
+  }
+
   windowsList.forEach(win => {
     const titleBar = win.querySelector(".title-bar");
     if (!titleBar) return;
 
     titleBar.addEventListener("mousedown", (e) => {
-      if (e.target.tagName.toLowerCase() === "button") return;
-      if (windowRegistry[win.id].maximized || isMobile) return;
-
+      if (e.target.closest("button")) return;
       e.preventDefault();
-      focusWindow(win.id);
-
-      let startX = e.clientX;
-      let startY = e.clientY;
-      let initialLeft = parseInt(win.style.left) || 0;
-      let initialTop = parseInt(win.style.top) || 0;
-
-      function onMouseMove(moveEvent) {
-        const deltaX = moveEvent.clientX - startX;
-        const deltaY = moveEvent.clientY - startY;
-
-        let newLeft = initialLeft + deltaX;
-        let newTop = initialTop + deltaY;
-
-        const winWidth = win.offsetWidth;
-        const minLeft = -winWidth / 2;
-        const maxLeft = window.innerWidth - (winWidth / 2);
-        const minTop = 0;
-        const maxTop = window.innerHeight - 80;
-
-        newLeft = Math.max(minLeft, Math.min(maxLeft, newLeft));
-        newTop = Math.max(minTop, Math.min(maxTop, newTop));
-
-        win.style.left = `${newLeft}px`;
-        win.style.top = `${newTop}px`;
-      }
-
-      function onMouseUp() {
-        document.removeEventListener("mousemove", onMouseMove);
-        document.removeEventListener("mouseup", onMouseUp);
-      }
-
-      document.addEventListener("mousemove", onMouseMove);
-      document.addEventListener("mouseup", onMouseUp);
+      initDrag(win, e.clientX, e.clientY);
     });
 
     titleBar.addEventListener("touchstart", (e) => {
-      if (e.target.tagName.toLowerCase() === "button") return;
-      if (windowRegistry[win.id].maximized) return;
-
-      focusWindow(win.id);
+      if (e.target.closest("button")) return;
       const touch = e.touches[0];
-      let startX = touch.clientX;
-      let startY = touch.clientY;
-      let initialLeft = parseInt(win.style.left) || 0;
-      let initialTop = parseInt(win.style.top) || 0;
-
-      function onTouchMove(moveEvent) {
-        const touchMove = moveEvent.touches[0];
-        const deltaX = touchMove.clientX - startX;
-        const deltaY = touchMove.clientY - startY;
-
-        let newLeft = initialLeft + deltaX;
-        let newTop = initialTop + deltaY;
-
-        const winWidth = win.offsetWidth;
-        const minLeft = -winWidth / 2;
-        const maxLeft = window.innerWidth - (winWidth / 2);
-        const minTop = 0;
-        const maxTop = window.innerHeight - 80;
-
-        newLeft = Math.max(minLeft, Math.min(maxLeft, newLeft));
-        newTop = Math.max(minTop, Math.min(maxTop, newTop));
-
-        win.style.left = `${newLeft}px`;
-        win.style.top = `${newTop}px`;
-      }
-
-      function onTouchEnd() {
-        document.removeEventListener("touchmove", onTouchMove);
-        document.removeEventListener("touchend", onTouchEnd);
-      }
-
-      document.addEventListener("touchmove", onTouchMove, { passive: true });
-      document.addEventListener("touchend", onTouchEnd);
+      initDrag(win, touch.clientX, touch.clientY);
     }, { passive: true });
   });
 
@@ -487,10 +482,39 @@ document.addEventListener("DOMContentLoaded", () => {
       if (targetWindowId) {
         openWindow(targetWindowId);
         startMenu.classList.add("hidden");
+        if (allProgsFlyout) allProgsFlyout.classList.add("hidden");
         startButton?.classList.remove("active");
       }
     });
   });
+
+  // Flyout "Todos los programas"
+  const allProgsTrigger = document.getElementById("all-programs-trigger");
+  const allProgsFlyout = document.getElementById("all-programs-flyout");
+  if (allProgsTrigger && allProgsFlyout) {
+    allProgsTrigger.addEventListener("click", (e) => {
+      e.stopPropagation();
+      allProgsFlyout.classList.toggle("hidden");
+    });
+    // Cerrar flyout al hacer clic fuera
+    document.addEventListener("click", (e) => {
+      if (!allProgsFlyout.classList.contains("hidden") &&
+          !allProgsTrigger.contains(e.target) &&
+          !allProgsFlyout.contains(e.target)) {
+        allProgsFlyout.classList.add("hidden");
+      }
+    });
+    // Clic en items del flyout
+    allProgsFlyout.querySelectorAll(".flyout-item").forEach(item => {
+      item.addEventListener("click", () => {
+        const id = item.getAttribute("data-window");
+        if (id) openWindow(id);
+        startMenu.classList.add("hidden");
+        startButton?.classList.remove("active");
+        allProgsFlyout.classList.add("hidden");
+      });
+    });
+  }
 
   document.getElementById("btn-show-cv")?.addEventListener("click", (e) => {
     e.preventDefault();
@@ -594,7 +618,7 @@ document.addEventListener("DOMContentLoaded", () => {
       playClick();
 
       if (isMobile && targetLink) {
-        window.open(targetLink, "_blank");
+        window.open(targetLink, "_blank", "noopener,noreferrer");
       } else {
         updateProjectsSidebar(item);
       }
@@ -604,7 +628,7 @@ document.addEventListener("DOMContentLoaded", () => {
       e.stopPropagation();
       if (targetLink) {
         playClick();
-        window.open(targetLink, "_blank");
+        window.open(targetLink, "_blank", "noopener,noreferrer");
       }
     });
   });
@@ -614,25 +638,36 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // --- 9. PERSONALIZACIÓN DE FONDOS DE PANTALLA ---
-  wallpaperSelect?.addEventListener("change", () => {
-    if (!wallpaperSelect) return;
-    const selectedVal = wallpaperSelect.options[wallpaperSelect.selectedIndex].value;
-    const backgroundVal = wallpaperBackgrounds[selectedVal];
-    if (crtScreenPreview && backgroundVal) {
-      crtScreenPreview.style.backgroundImage = backgroundVal;
+  function getSelectedWallpaper() {
+    const selectedItem = wallpaperSelect?.querySelector(".wallpaper-list-item.selected");
+    return selectedItem?.getAttribute("data-value") || "bliss";
+  }
+
+  function setSelectedWallpaper(value) {
+    wallpaperSelect?.querySelectorAll(".wallpaper-list-item").forEach(item => {
+      item.classList.toggle("selected", item.getAttribute("data-value") === value);
+    });
+  }
+
+  wallpaperSelect?.addEventListener("click", (e) => {
+    const item = e.target.closest(".wallpaper-list-item");
+    if (!item) return;
+    setSelectedWallpaper(item.getAttribute("data-value"));
+    const val = item.getAttribute("data-value");
+    const bg = wallpaperBackgrounds[val];
+    if (crtScreenPreview && bg) {
+      crtScreenPreview.style.backgroundImage = bg;
       crtScreenPreview.style.backgroundSize = "cover";
     }
   });
 
   function applyWallpaper() {
-    if (!wallpaperSelect) return;
     playClick();
-    const selectedVal = wallpaperSelect.options[wallpaperSelect.selectedIndex].value;
+    const selectedVal = getSelectedWallpaper();
     const backgroundVal = wallpaperBackgrounds[selectedVal];
     if (desktop && backgroundVal) {
       desktop.style.backgroundImage = backgroundVal;
       desktop.style.backgroundSize = "cover";
-      // Guardar el fondo del escritorio en localStorage
       localStorage.setItem("desktop-wallpaper", selectedVal);
     }
   }
@@ -654,9 +689,13 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
     e.preventDefault();
-    
-    contextMenu.style.left = `${e.clientX}px`;
-    contextMenu.style.top = `${e.clientY}px`;
+
+    const menuW = 145;
+    const menuH = contextMenu.offsetHeight || 180;
+    let left = Math.min(e.clientX, window.innerWidth - menuW);
+    let top = Math.min(e.clientY, window.innerHeight - menuH);
+    contextMenu.style.left = `${Math.max(0, left)}px`;
+    contextMenu.style.top = `${Math.max(0, top)}px`;
     contextMenu.classList.remove("hidden");
   });
 
@@ -690,30 +729,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const msgMe = document.createElement("div");
     msgMe.className = "msn-msg msn-msg-me";
-    msgMe.innerHTML = `
-      <span class="msn-sender">Tú dice:</span>
-      <span class="msn-text">${text}</span>
-    `;
+    const senderMe = document.createElement("span");
+    senderMe.className = "msn-sender";
+    senderMe.textContent = "Tú dice:";
+    const textMe = document.createElement("span");
+    textMe.className = "msn-text";
+    textMe.textContent = text;
+    msgMe.appendChild(senderMe);
+    msgMe.appendChild(textMe);
     msnHistory.appendChild(msgMe);
     msnInput.value = "";
-    
+
     msnHistory.scrollTop = msnHistory.scrollHeight;
 
+    // Disparar mailto para redactar el correo con el mensaje escrito
+    setTimeout(() => {
+      window.location.href = `mailto:cristobal.sandoval.balboa@gmail.com?subject=Mensaje desde Portafolio MSN&body=${encodeURIComponent(text)}`;
+    }, 400);
+
+    // Mensaje automático en el chat confirmando el envío
     setTimeout(() => {
       const msgThem = document.createElement("div");
       msgThem.className = "msn-msg msn-msg-them";
-      
-      msgThem.innerHTML = `
-        <span class="msn-sender">Cristóbal dice:</span>
-        <span class="msn-text">¡Excelente mensaje! Te estoy redirigiendo a tu correo para enviármelo. ¡Hablamos pronto!</span>
-      `;
+      const senderThem = document.createElement("span");
+      senderThem.className = "msn-sender";
+      senderThem.textContent = "Cristóbal dice:";
+      const textThem = document.createElement("span");
+      textThem.className = "msn-text";
+      textThem.textContent = "¡Perfecto! He abierto tu cliente de correo para que envíes el mensaje. ¡Estaré atento a mi bandeja de entrada!";
+      msgThem.appendChild(senderThem);
+      msgThem.appendChild(textThem);
       msnHistory.appendChild(msgThem);
       msnHistory.scrollTop = msnHistory.scrollHeight;
-
-      setTimeout(() => {
-        window.location.href = `mailto:cristobal.sandoval.balboa@gmail.com?subject=Mensaje desde el Portafolio&body=${encodeURIComponent(text)}`;
-      }, 800);
-    }, 1000);
+    }, 1200);
   }
 
   msnSendBtn?.addEventListener("click", sendMsnMessage);
@@ -727,17 +775,12 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- BOTONES DE LA BARRA DE HERRAMIENTAS DE MSN ---
   document.getElementById("msn-tb-github")?.addEventListener("click", () => {
     playClick();
-    window.open("https://github.com/Cristobal-Sandoval", "_blank");
+    window.open("https://github.com/Cristobal-Sandoval", "_blank", "noopener,noreferrer");
   });
 
   document.getElementById("msn-tb-cv")?.addEventListener("click", () => {
     playClick();
     openWindow("win-cv");
-  });
-
-  document.getElementById("msn-tb-projects")?.addEventListener("click", () => {
-    playClick();
-    openWindow("win-projects");
   });
 
   // --- INTERACTIVIDAD DEL ZUMBIDO DE MSN (Solo de bonito) ---
@@ -799,7 +842,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     shutdownScreen.addEventListener("click", () => {
       window.location.reload();
-    });
+    }, { once: true });
   });
 
   // --- 13. EFECTO DE SONIDO EN OPCIONES DESHABILITADAS ---
@@ -813,7 +856,34 @@ document.addEventListener("DOMContentLoaded", () => {
   // Accesorios extra
   const btnDownloadCv = document.getElementById("btn-download-cv");
   btnDownloadCv?.addEventListener("click", () => {
-    alert("Descargando Currículum Vitae de Cristóbal Sandoval...");
+    window.print();
+  });
+
+  // Zoom de CV
+  let cvZoomLevel = 100;
+  const cvZoomLevels = [75, 100, 125, 150];
+  const cvPages = document.querySelectorAll("#win-cv .pdf-page");
+  const cvZoomLabel = document.getElementById("cv-zoom-label");
+  const btnZoomIn = document.getElementById("btn-zoom-in");
+  const btnZoomOut = document.getElementById("btn-zoom-out");
+
+  function applyCvZoom(level) {
+    cvZoomLevel = level;
+    cvPages.forEach(p => {
+      p.className = p.className.replace(/zoom-\d+/g, "").trim();
+      p.classList.add("zoom-" + level);
+    });
+    if (cvZoomLabel) cvZoomLabel.textContent = level + "%";
+  }
+
+  btnZoomIn?.addEventListener("click", () => {
+    const idx = cvZoomLevels.indexOf(cvZoomLevel);
+    if (idx < cvZoomLevels.length - 1) applyCvZoom(cvZoomLevels[idx + 1]);
+  });
+
+  btnZoomOut?.addEventListener("click", () => {
+    const idx = cvZoomLevels.indexOf(cvZoomLevel);
+    if (idx > 0) applyCvZoom(cvZoomLevels[idx - 1]);
   });
 
   // --- 14. GLOBO DE NOTIFICACIÓN DE WINDOWS XP ---
@@ -836,5 +906,458 @@ document.addEventListener("DOMContentLoaded", () => {
       trayBalloon.classList.add("hidden");
     });
   }
+
+  // ==========================================================================
+  // --- WINAMP AUDIO PLAYER CONTROLLER ---
+  // ==========================================================================
+  const winampTracks = [
+    {
+      title: "The Lift - Kevin MacLeod",
+      url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/The%20Lift.mp3",
+      kbps: 320,
+      khz: 44,
+      duration: "00:00"
+    },
+    {
+      title: "Blippy Trance - Kevin MacLeod",
+      url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Blippy%20Trance.mp3",
+      kbps: 320,
+      khz: 44,
+      duration: "00:00"
+    },
+    {
+      title: "Cut Trance - Kevin MacLeod",
+      url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Cut%20Trance.mp3",
+      kbps: 320,
+      khz: 44,
+      duration: "00:00"
+    },
+    {
+      title: "Mesmerize - Kevin MacLeod",
+      url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Mesmerize.mp3",
+      kbps: 320,
+      khz: 44,
+      duration: "00:00"
+    },
+    {
+      title: "Rising Tide - Kevin MacLeod",
+      url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Rising%20Tide.mp3",
+      kbps: 320,
+      khz: 44,
+      duration: "00:00"
+    },
+    {
+      title: "Fluidscape - Kevin MacLeod",
+      url: "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Fluidscape.mp3",
+      kbps: 320,
+      khz: 44,
+      duration: "00:00"
+    }
+  ];
+
+  let currentTrackIdx = 0;
+  let winampIsPlaying = false;
+  let winampShuffle = false;
+  let winampRepeat = false;
+  const winampAudio = new Audio();
+  winampAudio.type = "audio/mpeg";
+
+  // DOM Elements
+  const winampWin = document.getElementById("win-winamp");
+  const winampDragHandle = document.getElementById("winamp-drag-handle");
+  const winampBtnClose = document.getElementById("winamp-btn-close");
+  const winampBtnMin = document.getElementById("winamp-btn-minimize");
+  const winampSongTitleEl = document.getElementById("winamp-song-title");
+  const winampTimeEl = document.getElementById("winamp-time");
+  const winampKbpsEl = document.getElementById("winamp-info-kbps");
+  const winampKhzEl = document.getElementById("winamp-info-khz");
+  const winampVolumeSlider = document.getElementById("winamp-volume-slider");
+  const winampPlaylistList = document.getElementById("winamp-playlist-list");
+  const winampProgressSlider = document.getElementById("winamp-progress-slider");
+  
+  // Status indicators
+  const winampStatusPlay = document.getElementById("winamp-status-play");
+  const winampStatusPause = document.getElementById("winamp-status-pause");
+  
+  // Panels
+  const plEditor = winampWin?.querySelector(".winamp-playlist-editor");
+  const eqWindow = winampWin?.querySelector(".winamp-equalizer-window");
+
+  // Panel Toggles
+  const togglePlBtn = document.getElementById("winamp-toggle-pl");
+  const toggleEqBtn = document.getElementById("winamp-toggle-eq");
+
+  // Control buttons
+  const btnPrev = document.getElementById("winamp-btn-prev");
+  const btnPlay = document.getElementById("winamp-btn-play");
+  const btnPause = document.getElementById("winamp-btn-pause");
+  const btnStop = document.getElementById("winamp-btn-stop");
+  const btnNext = document.getElementById("winamp-btn-next");
+  const btnEject = document.getElementById("winamp-btn-eject");
+  
+  // Shuffle/Repeat
+  const btnShuffle = document.getElementById("winamp-btn-shuffle");
+  const btnRepeat = document.getElementById("winamp-btn-repeat");
+
+  // Track counts & footer
+  const playlistCountEl = document.getElementById("playlist-track-count");
+  const playlistTimeEl = document.getElementById("playlist-total-time");
+
+  // Canvas for visualizer
+  const canvas = document.getElementById("winamp-visualizer");
+  const ctx = canvas ? canvas.getContext("2d") : null;
+
+  // Ticker state
+  let tickerOffset = 0;
+  let tickerInterval = null;
+
+  // Visualizer con osciloscopio simulado (no requiere Web Audio API ni CORS)
+  let visAnimId = null;
+  let visPeaks = new Array(16).fill(0);
+  let visPeakSpeed = new Array(16).fill(0.5);
+
+  function drawVisualizerLoop() {
+    if (!winampIsPlaying || !ctx) { drawBlankVisualizer(); return; }
+    visAnimId = requestAnimationFrame(drawVisualizerLoop);
+
+    const seed = winampAudio.currentTime || 0;
+    ctx.fillStyle = "#000000";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    const bw = 3, bg = 1;
+    for (let i = 0; i < 16; i++) {
+      const val = Math.abs(Math.sin(seed * (3 + i * 0.7) + i * 0.3)) * 0.7
+                + Math.abs(Math.sin(seed * (1.2 + i * 0.4))) * 0.3;
+      const h = Math.floor(val * 14);
+      const x = i * (bw + bg);
+      const y = canvas.height - h;
+      let color;
+      if (h < 4) color = "#00e100";
+      else if (h < 9) color = "#80e100";
+      else if (h < 12) color = "#e1e100";
+      else color = "#e14000";
+      ctx.fillStyle = color;
+      ctx.fillRect(x, y, bw, h);
+      if (h > visPeaks[i]) { visPeaks[i] = h; visPeakSpeed[i] = 0.3; }
+      else { visPeaks[i] = Math.max(0, visPeaks[i] - visPeakSpeed[i]); visPeakSpeed[i] += 0.02; }
+      if (visPeaks[i] > 0) {
+        ctx.fillStyle = "#fff";
+        ctx.fillRect(x, Math.max(0, canvas.height - visPeaks[i] - 1), bw, 1);
+      }
+    }
+  }
+
+  function drawBlankVisualizer() {
+    if (!ctx) return;
+    ctx.fillStyle = "#000000";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "#003300";
+    ctx.fillRect(2, canvas.height / 2, canvas.width - 4, 1);
+  }
+
+  // Registrar drag y drop
+  if (winampWin && winampDragHandle) {
+    winampDragHandle.addEventListener("mousedown", (e) => {
+      if (e.target.closest("button")) return;
+      e.preventDefault();
+      initDrag(winampWin, e.clientX, e.clientY);
+    });
+    winampDragHandle.addEventListener("touchstart", (e) => {
+      if (e.target.closest("button")) return;
+      const touch = e.touches[0];
+      initDrag(winampWin, touch.clientX, touch.clientY);
+    }, { passive: true });
+  }
+
+  if (winampBtnClose) winampBtnClose.addEventListener("click", () => {
+    winampAudio.pause();
+    winampAudio.currentTime = 0;
+    winampIsPlaying = false;
+    if (winampTimeEl) winampTimeEl.textContent = "00:00";
+    if (winampProgressSlider) winampProgressSlider.value = 0;
+    stopTicker();
+    drawBlankVisualizer();
+    closeWindow("win-winamp");
+  });
+  if (winampBtnMin) winampBtnMin.addEventListener("click", () => minimizeWindow("win-winamp"));
+
+  // Toggle Playlist
+  togglePlBtn?.addEventListener("click", () => {
+    const isHidden = plEditor?.classList.toggle("hidden");
+    togglePlBtn.classList.toggle("active", !isHidden);
+  });
+
+  // Toggle Equalizer
+  toggleEqBtn?.addEventListener("click", () => {
+    const isHidden = eqWindow?.classList.toggle("hidden");
+    toggleEqBtn.classList.toggle("active", !isHidden);
+  });
+
+  // Shuffle / Repeat clicks
+  btnShuffle?.addEventListener("click", () => {
+    winampShuffle = !winampShuffle;
+    btnShuffle.classList.toggle("active", winampShuffle);
+  });
+
+  btnRepeat?.addEventListener("click", () => {
+    winampRepeat = !winampRepeat;
+    btnRepeat.classList.toggle("active", winampRepeat);
+  });
+
+  // Inicializar volumen
+  if (winampVolumeSlider) {
+    winampAudio.volume = parseFloat(winampVolumeSlider.value) / 100;
+    winampVolumeSlider.addEventListener("input", (e) => {
+      winampAudio.volume = parseFloat(e.target.value) / 100;
+    });
+  }
+
+  // Renderizar Playlist
+  function renderPlaylist() {
+    if (!winampPlaylistList) return;
+    winampPlaylistList.innerHTML = "";
+    
+    let totalSeconds = 0;
+
+    winampTracks.forEach((track, idx) => {
+      const item = document.createElement("div");
+      item.className = `playlist-track-item ${idx === currentTrackIdx ? 'active' : ''}`;
+      
+      const titleSpan = document.createElement("span");
+      titleSpan.textContent = `${idx + 1}. ${track.title}`;
+      
+      const durationSpan = document.createElement("span");
+      durationSpan.textContent = track.duration;
+      
+      item.appendChild(titleSpan);
+      item.appendChild(durationSpan);
+      
+      item.addEventListener("click", () => {
+        currentTrackIdx = idx;
+        loadAndPlayTrack();
+      });
+
+      winampPlaylistList.appendChild(item);
+
+      // Calcular tiempo total
+      const parts = track.duration.split(":");
+      totalSeconds += parseInt(parts[0]) * 60 + parseInt(parts[1]);
+    });
+
+    if (playlistCountEl) {
+      playlistCountEl.textContent = `${winampTracks.length} canciones`;
+    }
+    if (playlistTimeEl) {
+      const min = Math.floor(totalSeconds / 60);
+      const sec = totalSeconds % 60;
+      playlistTimeEl.textContent = `${min}:${sec < 10 ? '0' + sec : sec}`;
+    }
+  }
+
+  // Ticker animado estilo Winamp (smooth marquee usando requestAnimationFrame)
+  let tickerScrollText = "";
+  function startTicker(title) {
+    if (tickerInterval) { cancelAnimationFrame(tickerInterval); tickerInterval = null; }
+    tickerOffset = 0;
+    tickerScrollText = ` *** ${title.toUpperCase()} ***     `;
+    if (winampSongTitleEl) {
+      let lastTime = 0;
+      const step = 1;
+      function tick(timestamp) {
+        if (!lastTime) lastTime = timestamp;
+        if (timestamp - lastTime > 180) {
+          tickerOffset = (tickerOffset + step) % tickerScrollText.length;
+          winampSongTitleEl.textContent = tickerScrollText.slice(tickerOffset) + tickerScrollText.slice(0, tickerOffset);
+          lastTime = timestamp;
+        }
+        tickerInterval = requestAnimationFrame(tick);
+      }
+      tickerInterval = requestAnimationFrame(tick);
+    }
+  }
+
+  function stopTicker() {
+    if (tickerInterval) { cancelAnimationFrame(tickerInterval); tickerInterval = null; }
+    if (winampSongTitleEl) {
+      winampSongTitleEl.textContent = winampTracks[currentTrackIdx] ? winampTracks[currentTrackIdx].title : "Winamp Detenido";
+    }
+  }
+
+  // Cargar y reproducir
+  function loadAndPlayTrack() {
+    const track = winampTracks[currentTrackIdx];
+    if (!track) return;
+
+    winampAudio.src = track.url;
+    winampAudio.load();
+
+    winampIsPlaying = true;
+    winampAudio.play().catch(err => {
+      console.log("Reproducción bloqueada por el navegador:", err);
+      winampIsPlaying = false;
+      stopTicker();
+      drawBlankVisualizer();
+    });
+
+    // Actualizar iconos de estado
+    winampStatusPlay?.classList.remove("hidden");
+    winampStatusPause?.classList.add("hidden");
+
+    if (winampKbpsEl) winampKbpsEl.textContent = track.kbps;
+    if (winampKhzEl) winampKhzEl.textContent = track.khz;
+
+    startTicker(track.title);
+    renderPlaylist();
+
+    visPeaks = new Array(16).fill(0);
+    visPeakSpeed = new Array(16).fill(0.5);
+
+    if (winampIsPlaying) {
+      cancelAnimationFrame(visAnimId);
+      drawVisualizerLoop();
+    }
+  }
+
+  // Eventos de reproducción
+  winampAudio.addEventListener("timeupdate", () => {
+    const current = winampAudio.currentTime;
+    const min = Math.floor(current / 60);
+    const sec = Math.floor(current % 60);
+    const dur = winampAudio.duration || 0;
+    const dMin = Math.floor(dur / 60);
+    const dSec = Math.floor(dur % 60);
+    if (winampTimeEl) {
+      if (dur && isFinite(dur)) {
+        winampTimeEl.textContent = `${min < 10 ? '0' + min : min}:${sec < 10 ? '0' + sec : sec}/${dMin < 10 ? '0' + dMin : dMin}:${dSec < 10 ? '0' + dSec : dSec}`;
+      } else {
+        winampTimeEl.textContent = `${min < 10 ? '0' + min : min}:${sec < 10 ? '0' + sec : sec}`;
+      }
+    }
+
+    // Sincronizar barra de progreso si no se está arrastrando
+    if (winampProgressSlider && !winampProgressSlider.classList.contains("dragging")) {
+      const pct = (winampAudio.currentTime / (dur || 1)) * 100;
+      winampProgressSlider.value = pct || 0;
+    }
+  });
+
+  // Controlar arrastre en barra de progreso
+  if (winampProgressSlider) {
+    winampProgressSlider.addEventListener("mousedown", () => {
+      winampProgressSlider.classList.add("dragging");
+    });
+    winampProgressSlider.addEventListener("mouseup", () => {
+      winampProgressSlider.classList.remove("dragging");
+    });
+    winampProgressSlider.addEventListener("change", (e) => {
+      const pct = parseFloat(e.target.value) / 100;
+      if (winampAudio.duration) {
+        winampAudio.currentTime = winampAudio.duration * pct;
+      }
+    });
+  }
+
+  winampAudio.addEventListener("ended", () => {
+    if (winampRepeat) {
+      loadAndPlayTrack();
+    } else if (winampShuffle) {
+      currentTrackIdx = Math.floor(Math.random() * winampTracks.length);
+      loadAndPlayTrack();
+    } else {
+      currentTrackIdx = (currentTrackIdx + 1) % winampTracks.length;
+      loadAndPlayTrack();
+    }
+  });
+
+  winampAudio.addEventListener("error", (e) => {
+    console.error("Error en winampAudio:", e);
+    winampIsPlaying = false;
+    stopTicker();
+    drawBlankVisualizer();
+    if (winampTimeEl) winampTimeEl.textContent = "ERR";
+  });
+
+  // Obtener duración real al cargar metadatos
+  winampAudio.addEventListener("loadedmetadata", () => {
+    const dur = winampAudio.duration;
+    if (dur && isFinite(dur)) {
+      const track = winampTracks[currentTrackIdx];
+      if (track) {
+        const min = Math.floor(dur / 60);
+        const sec = Math.floor(dur % 60);
+        track.duration = `${min < 10 ? '0' + min : min}:${sec < 10 ? '0' + sec : sec}`;
+        renderPlaylist();
+      }
+    }
+  });
+
+  // Vinculación de Botones
+  btnPlay?.addEventListener("click", () => {
+    winampStatusPlay?.classList.remove("hidden");
+    winampStatusPause?.classList.add("hidden");
+
+    if (winampAudio.src && winampAudio.src !== window.location.href && !winampAudio.ended) {
+      winampIsPlaying = true;
+      winampAudio.play().catch(() => { winampIsPlaying = false; });
+      startTicker(winampTracks[currentTrackIdx].title);
+      visPeaks = new Array(16).fill(0);
+      visPeakSpeed = new Array(16).fill(0.5);
+      cancelAnimationFrame(visAnimId);
+      drawVisualizerLoop();
+    } else {
+      loadAndPlayTrack();
+    }
+  });
+
+  btnPause?.addEventListener("click", () => {
+    winampAudio.pause();
+    winampIsPlaying = false;
+    winampStatusPlay?.classList.add("hidden");
+    winampStatusPause?.classList.remove("hidden");
+    stopTicker();
+    drawBlankVisualizer();
+  });
+
+  btnStop?.addEventListener("click", () => {
+    winampAudio.pause();
+    winampAudio.currentTime = 0;
+    winampIsPlaying = false;
+    winampStatusPlay?.classList.add("hidden");
+    winampStatusPause?.classList.add("hidden");
+    if (winampTimeEl) winampTimeEl.textContent = "00:00";
+    if (winampProgressSlider) winampProgressSlider.value = 0;
+    stopTicker();
+    drawBlankVisualizer();
+  });
+
+  btnNext?.addEventListener("click", () => {
+    currentTrackIdx = (currentTrackIdx + 1) % winampTracks.length;
+    loadAndPlayTrack();
+  });
+
+  btnPrev?.addEventListener("click", () => {
+    currentTrackIdx = (currentTrackIdx - 1 + winampTracks.length) % winampTracks.length;
+    loadAndPlayTrack();
+  });
+
+  btnEject?.addEventListener("click", () => {
+    const url = prompt("Escribe o pega la dirección URL de un archivo de música MP3 para reproducir:");
+    if (url) {
+      const title = prompt("Escribe el nombre de la canción:", "Canción personalizada");
+      winampTracks.push({
+        title: title || "Canción de Internet",
+        url: url,
+        kbps: 128,
+        khz: 44,
+        duration: "00:00"
+      });
+      currentTrackIdx = winampTracks.length - 1;
+      loadAndPlayTrack();
+    }
+  });
+
+  // Inicializar componentes
+  renderPlaylist();
+  drawBlankVisualizer();
 
 });

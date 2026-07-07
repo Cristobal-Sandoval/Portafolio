@@ -16,20 +16,26 @@ El proyecto fue desarrollado desde cero con un enfoque de optimización y fideli
 
 1.  **Entorno Windows XP Realista**:
     *   Fondo de pantalla clásico **Bliss (Felicidad)** oficial.
-    *   Menú Inicio funcional con accesos directos.
-    *   Barra de tareas dinámica que refleja las ventanas que se encuentran abiertas.
-    *   Sistema interactivo de **Propiedades de Pantalla** que te permite cambiar el fondo del escritorio en tiempo real (Bliss, Azul, Gris, etc.) mediante una simulación de monitor CRT.
+    *   Menú Inicio funcional con accesos directos y submenú "Todos los programas".
+    *   Barra de tareas dinámica que refleja las ventanas abiertas con botones interactivos.
+    *   Sistema interactivo de **Propiedades de Pantalla** que permite cambiar el fondo del escritorio en tiempo real.
+    *   Ventanas de tamaño fijo sin maximizar (estilo Messenger) para mantener la estética XP consistente.
 2.  **Manejo Avanzado de Ventanas (Stacking & Dragging)**:
     *   Ventanas arrastrables mediante su barra de título con detección de bordes.
-    *   Sistema de foco tridimensional en capas (`z-index` incremental) que trae la ventana al frente de inmediato al hacer clic o pulsación táctil en cualquier parte de ella.
+    *   Sistema de foco tridimensional en capas (`z-index` incremental) que trae la ventana al frente al hacer clic.
 3.  **MSN Messenger 7.5 de Alta Fidelidad (Pixel-Perfect)**:
-    *   Barra de herramientas superior en forma de ola con punto de estado, botones clásicos de dibujo/bloqueo y accesos rápidos a GitHub, Currículum y Proyectos.
-    *   Historial y encabezado de conversación integrados dentro de un único panel blanco redondeado.
+    *   Barra de herramientas superior en forma de ola con punto de estado y botones clásicos.
+    *   Historial y encabezado de conversación integrados en un panel redondeado.
     *   Botonera stacked de `Enviar` y `Buscar`.
-    *   Avatares detallados con pestañas inferiores desplegables, incluyendo tu avatar personalizado (Joji Confused Screaming) y el logo clásico de MSN Blue Buddy.
-    *   Pie publicitario nostálgico (*Ad Banner*) enlazado a tu cliente de correo.
+    *   Avatares detallados con pestañas inferiores desplegables.
+    *   Pie publicitario nostálgico (*Ad Banner*).
 4.  **Adobe Reader CV Integrado**:
-    *   Visualizador simulado de currículum en formato PDF con controles de zoom, botones de descarga de archivo y barra de estado protegida.
+    *   Visualizador simulado de currículum en formato PDF con controles de zoom (75%–150%), descarga y barra de estado.
+5.  **Winamp Player Retro**:
+    *   Reproductor de audio con auténtico diseño Winamp (chasis gris oscuro, display LED verde).
+    *   Visualizador osciloscopio con picos de brillo.
+    *   Playlist shuffle/repeat y slider de progreso.
+    *   6 canciones estilo trance ambiental de Kevin MacLeod (The Lift, Blippy Trance, Cut Trance, Mesmerize, Rising Tide, Fluidscape).
 
 ---
 

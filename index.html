@@ -4,34 +4,57 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M1.5 2.5 L7.5 1 L7.5 7.5 L1.5 7.5 Z' fill='%23F44336'/><path d='M8.5 1 L14.5 2.5 L14.5 7.5 L8.5 7.5 Z' fill='%234CAF50'/><path d='M1.5 8.5 L7.5 8.5 L7.5 15 L1.5 13.5 Z' fill='%2300BCD4'/><path d='M8.5 8.5 L14.5 8.5 L14.5 13.5 L8.5 15 Z' fill='%23FFEB3B'/></svg>" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cristóbal Sandoval | Desarrollador Web Full Stack - Portafolio Windows XP</title>
-    <meta name="description" content="Portafolio interactivo estilo Windows XP de Cristóbal Sandoval - Desarrollador Web Full Stack. Conoce mi experiencia, proyectos como videos y contáctame por MSN Messenger." />
-    <meta name="keywords" content="Cristóbal Sandoval, Portafolio, Windows XP, Desarrollador Web, Full Stack, React, Node.js, Portafolio Retro" />
-    <meta name="author" content="Cristóbal Sandoval" />
+    <title>Cristóbal Sandoval | Front End Developer - Portafolio Windows XP</title>
+    <meta name="description" content="Portafolio interactivo estilo Windows XP de Cristóbal Sandoval - Front End Developer. Conoce mi experiencia en React, VTEX, JavaScript, proyectos y contáctame por MSN Messenger." />
+    <meta name="keywords" content="Cristóbal Sandoval, Portafolio, Windows XP, Front End, React, VTEX, JavaScript, Prevencionista de Riesgos" />
+    <meta name="author" content="Cristóbal Andrés Sandoval Balboa" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://github.com/Cristobal-Sandoval" />
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://github.com/Cristobal-Sandoval" />
-    <meta property="og:title" content="Cristóbal Sandoval | Desarrollador Web Full Stack" />
-    <meta property="og:description" content="Explora mi portafolio interactivo con la interfaz clásica de Windows XP. Proyectos, experiencia y contacto estilo retro." />
+    <meta property="og:title" content="Cristóbal Sandoval | Front End Developer" />
+    <meta property="og:description" content="Explora mi portafolio interactivo con la interfaz clásica de Windows XP. Proyectos en React, VTEX y JavaScript." />
     <meta property="og:image" content="/wallpapers/bliss.jpg" />
+    <meta property="og:locale" content="es_CL" />
+    <meta property="og:site_name" content="Cristóbal Sandoval - Portafolio" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://github.com/Cristobal-Sandoval" />
-    <meta property="twitter:title" content="Cristóbal Sandoval | Desarrollador Web Full Stack" />
-    <meta property="twitter:description" content="Explora mi portafolio interactivo con la interfaz clásica de Windows XP. Proyectos, experiencia y contacto estilo retro." />
+    <meta property="twitter:title" content="Cristóbal Sandoval | Front End Developer" />
+    <meta property="twitter:description" content="Explora mi portafolio interactivo con la interfaz clásica de Windows XP. Proyectos en React, VTEX y JavaScript." />
     <meta property="twitter:image" content="/wallpapers/bliss.jpg" />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Cristóbal Andrés Sandoval Balboa",
+      "jobTitle": "Front End Developer",
+      "url": "https://github.com/Cristobal-Sandoval",
+      "email": "cristobal.sandoval.balboa@gmail.com",
+      "telephone": "+56956628609",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Concepción",
+        "addressCountry": "Chile"
+      }
+    }
+    </script>
 
     <!-- Preloads -->
     <link rel="preload" href="/wallpapers/bliss.jpg" as="image" />
     <link rel="preload" href="/sounds/startup.mp3" as="audio" />
 
     <!-- Importar xp.css CDN -->
-    <link rel="stylesheet" href="https://unpkg.com/xp.css" />
+    <link rel="stylesheet" href="https://unpkg.com/xp.css@0.2.6" />
     <link rel="stylesheet" href="/src/style.css" />
-  </head>  <body>
-    <h1 class="seo-only">Portafolio Profesional de Cristóbal Sandoval - Desarrollador Web Full Stack</h1>
+  </head>
+  <body>
+    <h1 class="seo-only">Portafolio Profesional de Cristóbal Sandoval - Front End Developer</h1>
     
     <!-- 1. ESCRITORIO (SE MUESTRA DE INMEDIATO) -->
     <div id="desktop">
@@ -122,7 +145,7 @@
       <!-- VENTANAS -->
 
       <!-- VENTANA: MI INFORMACIÓN (Mi PC) -->
-      <div class="window win-style" id="win-about" style="width: 440px; top: 20px; left: 80px;">
+      <div class="window win-style" id="win-about" style="width: 620px; top: 20px; left: 80px;">
         <div class="title-bar">
           <div class="title-bar-text">
             <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect x='2' y='4' width='12' height='8' fill='%23000'/><rect x='3' y='5' width='10' height='6' fill='%230A5BC4'/></svg>" class="win-title-icon" />
@@ -130,7 +153,7 @@
           </div>
           <div class="title-bar-controls">
             <button aria-label="Minimize"></button>
-            <button aria-label="Maximize"></button>
+            <button aria-label="Maximize" disabled></button>
             <button aria-label="Close"></button>
           </div>
         </div>
@@ -153,45 +176,54 @@
               </details>
             </div>
             <div class="xp-explorer-content">
-              <h3 class="about-title">¡Hola! Soy Cristóbal Sandoval</h3>
+              <h2 class="about-title">¡Hola! Soy Cristóbal Sandoval</h2>
               <p class="about-text">
-                Bienvenido/a a mi portafolio con la interfaz de Windows XP. Soy desarrollador web y me especializo en construir interfaces altamente interactivas, funcionales y optimizadas.
+                Profesional con formación en Prevención de Riesgos y experiencia como Front End Developer. Combino habilidades técnicas en desarrollo web (React, VTEX, JavaScript) con conocimientos en gestión, seguridad laboral y procesos administrativos.
               </p>
               <fieldset>
                 <legend>Información General</legend>
                 <table class="about-table">
                   <tr>
                     <td><strong>Nombre:</strong></td>
-                    <td>Cristóbal Sandoval</td>
+                    <td>Cristóbal Andrés Sandoval Balboa</td>
                   </tr>
                   <tr>
                     <td><strong>Profesión:</strong></td>
-                    <td>Desarrollador Web Full Stack</td>
+                    <td>Front End Developer | Prevencionista de Riesgos</td>
                   </tr>
                   <tr>
                     <td><strong>Especialidad:</strong></td>
-                    <td>React, Node.js, Diseño Retro, Performance</td>
+                    <td>React, VTEX, JavaScript, UX, Prevención de Riesgos</td>
                   </tr>
                   <tr>
                     <td><strong>Ubicación:</strong></td>
-                    <td>Santiago, Chile</td>
+                    <td>Concepción, Chile</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Teléfono:</strong></td>
+                    <td>+569 5662 8609</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Email:</strong></td>
+                    <td>cristobal.sandoval.balboa@gmail.com</td>
+                  </tr>
+                  <tr>
+                    <td><strong>LinkedIn:</strong></td>
+                    <td>linkedin.com/in/cristobalsandovaldev</td>
                   </tr>
                 </table>
               </fieldset>
-              <p style="margin-top: 10px;">
-                Esta interfaz está optimizada de manera responsive para que se visualice correctamente en tu dispositivo celular. ¡Disfruta navegando en mi escritorio retro!
-              </p>
             </div>
           </div>
         </div>
         <div class="status-bar">
-          <p class="status-bar-field">Estado: En línea</p>
-          <p class="status-bar-field" style="max-width: 120px;">Tamaño: 2.1 KB</p>
+          <p class="status-bar-field">Estado: Abierto a oportunidades</p>
+          <p class="status-bar-field" style="max-width: 120px;">Tamaño: 3.2 KB</p>
         </div>
       </div>
 
       <!-- VENTANA: PROYECTOS (Mis Proyectos - Ampliada para albergar 5 elementos sin scroll) -->
-      <div class="window win-style" id="win-projects" style="width: 760px; height: 480px; top: 60px; left: 500px;">
+      <div class="window win-style" id="win-projects" style="width: 820px; height: 520px; top: 60px; left: 500px;">
         <div class="title-bar">
           <div class="title-bar-text">
             <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M2 4v10c0 .5.5 1 1 1h10c.5 0 1-.5 1-1V5L9 1H3c-.5 0-1 .5-1 1zm7-2l4 4H9V2z' fill='%23F4D35E' stroke='%23C59B00'/></svg>" class="win-title-icon" />
@@ -199,7 +231,7 @@
           </div>
           <div class="title-bar-controls">
             <button aria-label="Minimize"></button>
-            <button aria-label="Maximize"></button>
+            <button aria-label="Maximize" disabled></button>
             <button aria-label="Close"></button>
           </div>
         </div>
@@ -249,7 +281,7 @@
             <div class="explorer-folder-grid" style="flex: 1; height: 100%; border-left: 1px solid #d4d0c8;">
               
               <!-- Proyecto 1 (CardPoint TCG - Activa) -->
-              <div class="explorer-item video-item" id="project-cardpoint" data-name="CardPoint TCG App" data-desc="Aplicación interactiva de cartas TCG para organizar y gestionar colecciones. Implementada en Vercel." data-status="Activa" data-url="https://github.com/Cristobal-Sandoval/CardPoint" data-vercel="https://cardpoint.cl">
+              <div class="explorer-item video-item" id="project-cardpoint" data-name="CardPoint TCG App" data-desc="Aplicación interactiva de cartas TCG para organizar y gestionar colecciones. Implementada en Vercel." data-status="Activa" data-url="https://github.com/Cristobal-Sandoval/CardPoint" data-vercel="https://cardpoint.cl" aria-label="Proyecto CardPoint TCG App - Aplicación interactiva de cartas TCG">
                 <div class="video-thumbnail-wrapper">
                   <div class="film-strip-edge left"></div>
                   <div class="video-preview-screen cardpoint-bg">
@@ -270,7 +302,7 @@
               </div>
 
               <!-- Proyecto 2 (Studio Vanessa Aravena - En Implementación) -->
-              <div class="explorer-item video-item" id="project-vanessa" data-name="Studio Vanessa Aravena" data-desc="Página web estética y agenda de servicios faciales y corporales. En etapa de desarrollo." data-status="En Implementación" data-url="https://github.com/Cristobal-Sandoval/studio-vanessa-aravena" data-vercel="https://studio-vanessa-aravena.vercel.app/">
+              <div class="explorer-item video-item" id="project-vanessa" data-name="Studio Vanessa Aravena" data-desc="Página web estética y agenda de servicios faciales y corporales. En etapa de desarrollo." data-status="En Implementación" data-url="https://github.com/Cristobal-Sandoval/studio-vanessa-aravena" data-vercel="https://studio-vanessa-aravena.vercel.app/" aria-label="Proyecto Studio Vanessa Aravena - Página web estética">
                 <div class="video-thumbnail-wrapper">
                   <div class="film-strip-edge left"></div>
                   <div class="video-preview-screen vanessa-bg">
@@ -289,7 +321,7 @@
               </div>
 
               <!-- Proyecto 3 (Beast Gym - Activa) -->
-              <div class="explorer-item video-item" id="project-gym" data-name="Beast Training Gym" data-desc="Sitio web de Beast Training Gym con planes, reservas de horas y pasarela informativa de entrenamientos." data-status="Activa" data-url="https://github.com/Cristobal-Sandoval/beast-gym" data-vercel="https://beast-training.vercel.app/">
+              <div class="explorer-item video-item" id="project-gym" data-name="Beast Training Gym" data-desc="Sitio web de Beast Training Gym con planes, reservas de horas y pasarela informativa de entrenamientos." data-status="Activa" data-url="https://github.com/Cristobal-Sandoval/beast-gym" data-vercel="https://beast-training.vercel.app/" aria-label="Proyecto Beast Training Gym - Sitio web de gimnasio">
                 <div class="video-thumbnail-wrapper">
                   <div class="film-strip-edge left"></div>
                   <div class="video-preview-screen beast-gym-bg">
@@ -308,7 +340,7 @@
               </div>
 
               <!-- Enlace 4 (Mi Perfil GitHub) -->
-              <div class="explorer-item video-item" id="project-github" data-name="GitHub Profile" data-desc="Repositorio principal donde hospedo todo mi código, commits y colaboraciones de software." data-status="Perfil" data-url="https://github.com/Cristobal-Sandoval">
+              <div class="explorer-item video-item" id="project-github" data-name="GitHub Profile" data-desc="Repositorio principal donde hospedo todo mi código, commits y colaboraciones de software." data-status="Perfil" data-url="https://github.com/Cristobal-Sandoval" aria-label="Perfil de GitHub de Cristóbal Sandoval">
                 <div class="video-thumbnail-wrapper">
                   <div class="film-strip-edge left"></div>
                   <div class="video-preview-screen github-bg">
@@ -336,7 +368,7 @@
       </div>
 
       <!-- VENTANA: EXPERIENCIA (Bloc de notas) -->
-      <div class="window win-style" id="win-experience" style="width: 500px; top: 120px; left: 220px;">
+      <div class="window win-style" id="win-experience" style="width: 620px; top: 120px; left: 220px;">
         <div class="title-bar">
           <div class="title-bar-text">
             <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect x='2' y='2' width='12' height='12' fill='%23FFF' stroke='%23D96E14'/><line x1='4' y1='5' x2='12' y2='5' stroke='%233373F2'/><line x1='4' y1='8' x2='12' y2='8' stroke='%233373F2'/></svg>" class="win-title-icon" />
@@ -344,7 +376,7 @@
           </div>
           <div class="title-bar-controls">
             <button aria-label="Minimize"></button>
-            <button aria-label="Maximize"></button>
+            <button aria-label="Maximize" disabled></button>
             <button aria-label="Close"></button>
           </div>
         </div>
@@ -354,37 +386,57 @@
           <span>Formato</span>
           <span>Ayuda</span>
         </div>
-        <div class="window-body" style="margin: 0;">
+        <div class="window-body">
           <textarea class="notepad-textarea" readonly>
-==================================================
+==================================================================
 MI TRAYECTORIA PROFESIONAL Y EXPERIENCIA
-==================================================
+==================================================================
 
-[1] Desarrollador Frontend Senior @ TechSolutions (2024 - Presente)
---------------------------------------------------
-- Liderazgo de la arquitectura de SPA usando React and Next.js.
-- Optimización del rendimiento de la app web en un 40%.
-- Colaboración con diseñadores para replicar interfaces complejas.
+[1] Administrativo @ Transportes Lia Limitada (10/2023 - Actualidad)
+------------------------------------------------------------------
+- Gestion de facturacion electronica y pagos a proveedores.
+- Atencion y gestion de relaciones con clientes y proveedores.
+- Organizacion y administracion de documentos contables.
 
-[2] Desarrollador Full Stack @ WebFactory (2022 - 2024)
---------------------------------------------------
-- Creación de APIs REST robustas usando Node.js, Express y MongoDB.
-- Mantenimiento y despliegue de aplicaciones web de comercio electrónico.
-- Integración de pasarelas de pago y sistemas de envío locales.
+[2] Front End Developer @ It Globers (10/2022 - 06/2023)
+------------------------------------------------------------------
+- Desarrollo de paginas y componentes en VTEX IO.
+- Creacion de apps web y moviles con React Native y Android Studio.
+- Trabajo colaborativo en equipo multidisciplinario con Jira y Git.
 
-[3] Desarrollador Web Junior @ SoftDesign (2020 - 2022)
---------------------------------------------------
-- Maquetación web con HTML5 semántico, CSS3 responsivo y Javascript ES6.
-- Corrección de bugs y soporte de sitios web institucionales en Wordpress.
-- Optimización SEO on-page y velocidad de carga básica.
+[3] Front End Developer Trainee @ Ecomsur (04/2022 - 08/2022)
+------------------------------------------------------------------
+- Mejora continua de sitios full commerce en VTEX Legacy.
+- Creacion de homepages y landing pages con HTML, CSS y JS.
+- Implementacion de formularios y Masterdata en VTEX.
 
-==================================================
-HABILIDADES TECNOLÓGICAS
-==================================================
-- Frontend: HTML5, CSS3, JavaScript, React, Vue, Tailwind CSS
-- Backend: Node.js, Express, PHP, Python
-- Bases de Datos: PostgreSQL, MongoDB, MySQL
-- Herramientas: Git, Vite, Webpack, Docker
+[4] Front End Developer @ Transportes Lia Limitada (09/2021 - 11/2021)
+------------------------------------------------------------------
+- Diseno y desarrollo del sitio web corporativo con HTML, CSS y Bootstrap.
+- Implementacion de mejoras SEO y optimizacion de rendimiento.
+- Creacion de nuevas secciones y mejora de UX.
+
+[5] Prevencionista de Riesgos @ Gerust Chile (01/2018 - 01/2020)
+------------------------------------------------------------------
+- Induccion a nuevos trabajadores en seguridad laboral.
+- Identificacion y evaluacion de riesgos laborales.
+- Elaboracion de planes de emergencia y capacitaciones.
+
+==================================================================
+HABILIDADES TECNOLOGICAS
+==================================================================
+- Frontend: HTML5, CSS3, JavaScript, React, Bootstrap, SASS
+- E-commerce: VTEX IO, VTEX Legacy, Masterdata
+- Herramientas: Git, Jira, Android Studio, Firebase
+- Diseño: UX/UI, Diseño Centrado en el Usuario, Responsive Design
+- Datos: Google Analytics, Analisis de Datos
+
+==================================================================
+CERTIFICACIONES
+==================================================================
+- Diseño de Experiencia del Usuario (UX) de Google
+- VTEX Tech Training
+- Analisis de Datos de Google
           </textarea>
         </div>
         <div class="status-bar">
@@ -394,7 +446,7 @@ HABILIDADES TECNOLÓGICAS
       </div>
 
       <!-- VENTANA: CV (Acrobat Reader / Wordpad Style) -->
-      <div class="window win-style" id="win-cv" style="width: 550px; top: 150px; left: 280px;">
+      <div class="window win-style" id="win-cv" style="width: 620px; top: 150px; left: 280px;">
         <div class="title-bar">
           <div class="title-bar-text">
             <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M2 2h12v12H2z' fill='%23FFF' stroke='%23B02020'/><text x='4' y='11' font-family='Arial' font-size='8' fill='%23B02020' font-weight='bold'>PDF</text></svg>" class="win-title-icon" />
@@ -402,7 +454,7 @@ HABILIDADES TECNOLÓGICAS
           </div>
           <div class="title-bar-controls">
             <button aria-label="Minimize"></button>
-            <button aria-label="Maximize"></button>
+            <button aria-label="Maximize" disabled></button>
             <button aria-label="Close"></button>
           </div>
         </div>
@@ -410,39 +462,169 @@ HABILIDADES TECNOLÓGICAS
           <div class="pdf-toolbar">
             <button class="pdf-btn" id="btn-download-cv">Descargar CV</button>
             <div class="vertical-bar"></div>
-            <span>Zoom: 100%</span>
+            <button class="pdf-btn pdf-zoom-btn" id="btn-zoom-out" title="Alejar">−</button>
+            <span id="cv-zoom-label">100%</span>
+            <button class="pdf-btn pdf-zoom-btn" id="btn-zoom-in" title="Acercar">+</button>
           </div>
 
           <div class="pdf-page-preview">
+            <!-- PÁGINA 1 -->
             <div class="pdf-page">
-              <h2 class="cv-header">CRISTÓBAL SANDOVAL</h2>
-              <p class="cv-sub">Full Stack Developer | Santiago, Chile | cristobal.sandoval.balboa@gmail.com</p>
-              <hr />
+              <div class="cv-title-area">
+                <h2 class="cv-header">Cristóbal Andrés Sandoval Balboa</h2>
+                <p class="cv-sub">Front End Developer | Prevencionista de riesgos</p>
+                <div class="cv-contacts">
+                  <span>✉ cristobal.sandoval.balboa@gmail.com</span>
+                  <span>📞 +56956628609</span>
+                  <span>📍 Concepcion, Chile</span>
+                  <span>🔗 linkedin.com/in/cristobalsandovaldev</span>
+                </div>
+              </div>
               
-              <h3>Perfil Profesional</h3>
+              <div class="cv-section-title">Perfil profesional</div>
               <p class="cv-p">
-                Desarrollador de software con pasión por la maquetación responsiva, interfaces de usuario de alta fidelidad, lógica backend y adaptabilidad multiplataforma.
+                Profesional con formación en Prevención de Riesgos y experiencia como Desarrollador Front End. Combino habilidades técnicas en desarrollo web (React, VTEX, JavaScript) con conocimientos en gestión, seguridad laboral y procesos administrativos. Me destaco por adaptarme a distintos entornos de trabajo, aportando tanto en áreas tecnológicas como operativas, con enfoque en la mejora continua y eficiencia de procesos.
               </p>
 
-              <h3>Educación</h3>
-              <p class="cv-p">
-                <strong>Ingeniería Civil en Informática</strong><br />
-                Universidad Tecnológica (2016 - 2021)
-              </p>
+              <div class="cv-section-title">Experiencia profesional</div>
+              
+              <div class="cv-job">
+                <div class="cv-job-header">
+                  <span>Administrativo, Transportes Lia Limitada</span>
+                  <span class="cv-job-date">10/2023 – Actualidad</span>
+                </div>
+                <div class="cv-job-loc">Concepcion, Chile</div>
+                <ul class="cv-bullets">
+                  <li>Gestión de facturación electrónica y pagos a proveedores, asegurando eficiencia en los procesos contables.</li>
+                  <li>Atención y gestión de relaciones con clientes y proveedores.</li>
+                  <li>Organización y administración de documentos contables y administrativos.</li>
+                </ul>
+              </div>
 
-              <h3>Idiomas</h3>
-              <p class="cv-p">
-                Español (Nativo) | Inglés (Intermedio Avanzado B2)
-              </p>
+              <div class="cv-job">
+                <div class="cv-job-header">
+                  <span>Front End Developer, It Globers</span>
+                  <span class="cv-job-date">10/2022 – 06/2023</span>
+                </div>
+                <div class="cv-job-loc">Colombia</div>
+                <ul class="cv-bullets">
+                  <li>Desarrollo de páginas y componentes en VTEX IO, asegurando compatibilidad con el ecosistema de e-commerce.</li>
+                  <li>Creación de aplicaciones web y móviles utilizando React Native y Android Studio, integrando funcionalidades dinámicas y optimizadas.</li>
+                  <li>Trabajo colaborativo en equipo multidisciplinario, participando en reuniones de planificación y seguimiento de tareas.</li>
+                  <li>Uso de Jira para gestión ágil de proyectos y Git para control de versiones, asegurando entregas organizadas y eficientes.</li>
+                </ul>
+              </div>
+
+              <div class="cv-job">
+                <div class="cv-job-header">
+                  <span>Front End Developer Trainee, Ecomsur</span>
+                  <span class="cv-job-date">04/2022 – 08/2022</span>
+                </div>
+                <div class="cv-job-loc">Santiago, Chile</div>
+                <ul class="cv-bullets">
+                  <li>Mejora continua de sitios enfocados en full commerce en Ecomsur.</li>
+                  <li>Implementación de nuevas características a sitios hechos con VTEX Legacy.</li>
+                  <li>Ideación, diseño y creación de homepages y landing pages con HTML, CSS y JS.</li>
+                  <li>Trabajo con bases de datos no relacionales en módulo Masterdata de VTEX.</li>
+                  <li>Implementación de formularios con JS para sitios desarrollados en VTEX legacy.</li>
+                </ul>
+              </div>
+
+              <div class="cv-job">
+                <div class="cv-job-header">
+                  <span>Front End Developer, Transportes Lia Limitada</span>
+                  <span class="cv-job-date">09/2021 – 11/2021</span>
+                </div>
+                <div class="cv-job-loc">Concepcion, Chile</div>
+                <ul class="cv-bullets">
+                  <li>Diseño y desarrollo del sitio web de la empresa con HTML, CSS y Bootstrap, asegurando una estructura intuitiva y fácil de navegar.</li>
+                  <li>Implementación de mejoras en SEO, logrando mejor posicionamiento en buscadores y mayor tráfico orgánico.</li>
+                  <li>Mantenimiento y actualización del sitio, optimizando tiempos de carga y adaptabilidad a distintos dispositivos.</li>
+                  <li>Creación de nuevas secciones y mejoras en la interfaz para mejorar la experiencia de usuario.</li>
+                </ul>
+              </div>
+
+              <div class="cv-footer">
+                <span>cristobal.sandoval.balboa@gmail.com</span>
+                <span>1 / 2</span>
+              </div>
+            </div>
+
+            <!-- PÁGINA 2 -->
+            <div class="pdf-page">
+              <div class="cv-job" style="margin-top: 0;">
+                <div class="cv-job-header">
+                  <span>Prevencionista de Riesgos, Gerust Chile</span>
+                  <span class="cv-job-date">01/2018 – 01/2020</span>
+                </div>
+                <div class="cv-job-loc">Temuco, Chile</div>
+                <ul class="cv-bullets">
+                  <li>Inducción a nuevos trabajadores</li>
+                  <li>Identificación y evaluación de riesgos</li>
+                  <li>Elaboración de planes de emergencia</li>
+                  <li>Capacitación en seguridad laboral</li>
+                  <li>Investigación de accidentes</li>
+                  <li>Gestión de EPP</li>
+                </ul>
+              </div>
+
+              <div class="cv-section-title">Educación</div>
+              
+              <div class="cv-edu">
+                <div class="cv-edu-header">
+                  <span>Desarrollo Front End, Coderhouse</span>
+                  <span class="cv-edu-date">10/2021 – 04/2022</span>
+                </div>
+                <p class="cv-p" style="margin-top: 4px; margin-bottom: 2px;">
+                  • <strong>Habilidades adquiridas</strong>: HTML5, CSS3, SASS, JavaScript, React, Responsive Design.
+                </p>
+                <p class="cv-p">
+                  • <strong>Proyecto final</strong>: Desarrollo de un e-commerce con React y Firebase.
+                </p>
+              </div>
+
+              <div class="cv-edu" style="margin-top: 8px;">
+                <div class="cv-edu-header">
+                  <span>Técnico en prevención de riesgos, Universidad tecnica Federico Santa Maria</span>
+                  <span class="cv-edu-date">2016 – 2019</span>
+                </div>
+              </div>
+
+              <div class="cv-section-title">Certificados</div>
+              
+              <div class="cv-certs-grid">
+                <div class="cv-cert-col">
+                  <strong>Diseño de Experiencia del Usuario (UX) de Google</strong>
+                  <p class="cv-p">Fundamentos de UX, accesibilidad y diseño centrado en el usuario.</p>
+                  
+                  <strong style="display: block; margin-top: 6px;">Vtex Tech Training</strong>
+                  <p class="cv-p">Capacitación en desarrollo y optimización de tiendas VTEX IO.</p>
+                </div>
+                <div class="cv-cert-col">
+                  <strong>Análisis de datos de Google</strong>
+                  <p class="cv-p">Uso de datos para toma de decisiones y optimización de procesos digitales.</p>
+                </div>
+              </div>
+
+              <div class="cv-section-title">Referencias</div>
+              <ul class="cv-bullets" style="list-style-type: none; padding-left: 0; margin-top: 4px;">
+                <li style="margin-bottom: 4px; font-size: 8.5px;"><strong>Phoebe Wilckens</strong>, <em>Full Stack Developer</em></li>
+                <li style="font-size: 8.5px;"><strong>Guido Espinoza</strong>, <em>Front End Developer</em></li>
+              </ul>
+
+              <div class="cv-footer" style="margin-top: auto;">
+                <span>cristobal.sandoval.balboa@gmail.com</span>
+                <span>2 / 2</span>
+              </div>
             </div>
           </div>
         </div>
         <div class="status-bar">
-          <p class="status-bar-field">Página 1 de 1</p>
+          <p class="status-bar-field">Página 1 de 2</p>
           <p class="status-bar-field" style="max-width: 150px;">Documento Protegido</p>
         </div>
       </div>
-      <div class="window win-style" id="win-contact" style="width: 550px; top: 380px; left: 120px;">
+      <div class="window win-style" id="win-contact" style="width: 630px; top: 380px; left: 120px;">
         <div class="title-bar">
           <div class="title-bar-text">
             <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><circle cx='6' cy='6' r='3' fill='%232E7AD6'/><path d='M2 14c0-3 2-4 4-4s4 1 4 4H2zm8-2c0-2 2-3 4-3s4 1 4 3h-8z' fill='%2369C23C'/></svg>" class="win-title-icon" />
@@ -476,7 +658,7 @@ HABILIDADES TECNOLÓGICAS
                 <circle cx="16" cy="12" r="3" fill="#ffffff" opacity="0.3" />
               </svg>
             </span>
-            <span class="msn-tb-text">Invitar</span>
+            <span class="msn-tb-text">GitHub</span>
           </div>
           <div class="msn-tb-btn" id="msn-tb-cv">
             <span class="msn-tb-icon">
@@ -489,31 +671,6 @@ HABILIDADES TECNOLÓGICAS
             </span>
             <span class="msn-tb-text">Currículum</span>
           </div>
-          <div class="msn-tb-btn" id="msn-tb-projects">
-            <span class="msn-tb-icon">
-              <svg viewBox="0 0 32 32" width="22" height="22">
-                <path d="M4 6 L12 6 L15 9 L28 9 L28 26 L4 26 Z" fill="#ffca54" stroke="#e09d00" stroke-width="1.5" />
-                <circle cx="16" cy="16" r="3" fill="#ffffff" opacity="0.5" />
-              </svg>
-            </span>
-            <span class="msn-tb-text">Proyectos</span>
-          </div>
-
-          <!-- Botones circulares Ban / Pen en el medio -->
-          <div class="msn-tb-mid-icons">
-            <div class="msn-tb-circle-btn red-ban" title="Bloquear contacto">
-              <svg viewBox="0 0 16 16" width="10" height="10">
-                <circle cx="8" cy="8" r="6" stroke="#cc2211" stroke-width="2" fill="none" />
-                <line x1="4" y1="4" x2="12" y2="12" stroke="#cc2211" stroke-width="2" />
-              </svg>
-            </div>
-            <div class="msn-tb-circle-btn blue-pen" title="Lápiz / Dibujar">
-              <svg viewBox="0 0 16 16" width="10" height="10">
-                <path d="M2 14 L5 14 L14 5 L11 2 L2 11 Z" fill="#245edb" />
-              </svg>
-            </div>
-          </div>
-
           <div class="msn-logo-area">
             <svg viewBox="0 0 54 28" width="54" height="28">
               <text x="2" y="19" font-family="'Trebuchet MS', Arial, sans-serif" font-weight="bold" font-style="italic" font-size="16" fill="#003dd7" letter-spacing="-1">msn</text>
@@ -533,7 +690,7 @@ HABILIDADES TECNOLÓGICAS
         <div class="window-body msn-window-body">
           <div class="msn-grid">
             
-            <!-- Fila 1: Historial (Col 1) | Spacer (Col 2) | Avatar Cristóbal (Col 3) -->
+            <!-- Fila 1: Historial + Avatar Cristóbal -->
             <div class="msn-grid-row row-chat">
               <div class="msn-grid-col-1">
                 <div class="msn-white-chat-container" style="border-radius: 8px;">
@@ -553,75 +710,55 @@ HABILIDADES TECNOLÓGICAS
                   </div>
                 </div>
               </div>
-              
-              <div class="msn-grid-col-2">
-                <!-- Espacio -->
-              </div>
-              
               <div class="msn-grid-col-3">
                 <div class="msn-avatar-box" style="border-radius: 8px;">
                   <div class="msn-avatar-frame green-status">
-                    <img src="/projects/joji_avatar.jpg" alt="Avatar de Cristóbal" />
+                    <img src="/projects/joji_avatar.jpg" alt="Foto de perfil de Cristóbal Sandoval" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2288%22 height=%2288%22><rect fill=%22%23ddd%22 width=%2288%22 height=%2288%22/><text fill=%22%23666%22 font-size=%2220%22 x=%2220%22 y=%2250%22>?</text></svg>'" />
                   </div>
                   <div class="msn-avatar-arrow-tab">▼</div>
                 </div>
               </div>
             </div>
 
-            <!-- Fila 2: Barra de Formato (Col 1) | Spacer (Col 2) | Separador (Col 3) -->
-            <div class="msn-grid-row row-format" style="margin-top: 6px;">
-              <div class="msn-grid-col-1">
-                <div class="msn-format-bar" style="border-radius: 8px 8px 0 0; border-bottom: none;">
-                  <span class="msn-fmt-text-btn"><strong style="font-family: serif; color: #0b327b; font-size: 13px;">A</strong> Fuente</span>
-                  <span class="msn-fmt-icon-btn">😊</span>
-                  <span class="msn-fmt-text-btn">😉 Guiños <span style="font-size:7px;">▼</span></span>
-                  <span class="msn-fmt-text-btn">🖼️ Fondos <span style="font-size:7px;">▼</span></span>
-                  <span class="msn-fmt-icon-btn" title="Regalos">🎁</span>
-                  <span class="msn-fmt-icon-btn zumbido-btn" id="msn-zumbido-btn" title="Zumbido" style="cursor:pointer; font-size:12px;">🔔</span>
-                </div>
-              </div>
-              <div class="msn-grid-col-2">
-                <!-- Espacio -->
-              </div>
-              <div class="msn-grid-col-3">
+            <!-- Fila 2: Separador Derecho (Formato movido abajo) -->
+            <div class="msn-grid-row row-format" style="margin-top: 2px; margin-bottom: 2px; height: 1px;">
+              <div class="msn-grid-col-1"></div>
+              <div class="msn-grid-col-3" style="display: flex; align-items: center; justify-content: center;">
                 <div class="msn-right-divider"></div>
               </div>
             </div>
 
-            <!-- Fila 3: Entrada de Texto (Col 1) | Botones (Col 2) | Avatar Usuario (Col 3) -->
+            <!-- Fila 3: Entrada de Texto + Botón Enviar + Avatar Usuario -->
             <div class="msn-grid-row row-input">
               <div class="msn-grid-col-1">
-                <div class="msn-input-container" style="border: 1px solid #7fa9f5; border-radius: 0 0 8px 8px; background: #fff; display: flex; flex-direction: column;">
-                  <textarea class="msn-textarea" id="msn-input-box" placeholder="Escribe un mensaje aquí..." style="border: none; width: 100%; height: 50px; resize: none; font-size: 11px; padding: 6px; outline: none; background: #fff;"></textarea>
-                  <!-- Pequeña barra inferior de opciones en la entrada -->
-                  <div class="msn-input-bottom-bar" style="height: 16px; border-top: 1px solid #f2f7fe; background: #f9fbfd; display: flex; align-items: center; justify-content: flex-end; padding-right: 6px; gap: 6px;">
-                    <span style="font-size: 10px; color: #7fa9f5; cursor: pointer;">✍️</span>
-                    <span style="font-size: 10px; font-weight: bold; color: #7fa9f5; cursor: pointer; font-family: serif;">A</span>
+                <div class="msn-input-box-wrapper">
+                  <!-- Barra de Formato -->
+                  <div class="msn-format-bar">
+                    <span class="msn-fmt-text-btn"><strong style="font-family: serif; color: #0b327b; font-size: 13px;">A</strong> Fuente</span>
+                    <span class="msn-fmt-icon-btn">😊</span>
+                    <span class="msn-fmt-text-btn">😉 Guiños <span style="font-size:7px;">▼</span></span>
+                    <span class="msn-fmt-text-btn">🖼️ Fondos <span style="font-size:7px;">▼</span></span>
+                    <span class="msn-fmt-icon-btn" title="Regalos">🎁</span>
+                    <span class="msn-fmt-icon-btn zumbido-btn" id="msn-zumbido-btn" title="Zumbido" style="cursor:pointer; font-size:12px;">🔔</span>
+                  </div>
+                  <!-- Contenedor del textarea y botones -->
+                  <div class="msn-input-container">
+                    <textarea class="msn-textarea" id="msn-input-box" placeholder="Escribe un mensaje aquí..." style="border: none; width: 100%; height: 50px; resize: none; font-size: 11px; padding: 6px; outline: none; background: #fff;"></textarea>
+                    <div class="msn-input-bottom-bar" style="height: 16px; border-top: 1px solid #f2f7fe; background: #f9fbfd; display: flex; align-items: center; justify-content: flex-end; padding-right: 6px; gap: 6px;">
+                      <span style="font-size: 10px; color: #7fa9f5; cursor: pointer;">✍️</span>
+                      <span style="font-size: 10px; font-weight: bold; color: #7fa9f5; cursor: pointer; font-family: serif;">A</span>
+                    </div>
+                    <button class="msn-send-btn" id="msn-send-btn" style="margin: 4px 6px 6px auto; border-radius: 4px; height: 26px; font-size: 11px; font-weight: normal; color: #333; background: linear-gradient(180deg, #ffffff 0%, #e2e1da 100%); border: 1px solid #b0afaa; display: block;">Enviar</button>
                   </div>
                 </div>
               </div>
-              
-              <div class="msn-grid-col-2">
-                <div class="msn-buttons-column" style="display: flex; flex-direction: column; gap: 4px; justify-content: flex-end; height: 100%;">
-                  <button class="msn-send-btn" id="msn-send-btn" style="border-radius: 4px; height: 26px; font-size: 11px; font-weight: normal; color: #333; background: linear-gradient(180deg, #ffffff 0%, #e2e1da 100%); border: 1px solid #b0afaa;">Enviar</button>
-                  <button class="msn-search-btn" id="msn-search-btn" style="border-radius: 4px; height: 21px; font-size: 10px; font-weight: normal; color: #555; background: linear-gradient(180deg, #ffffff 0%, #e8e7e1 100%); border: 1px solid #c0bfb9;" onclick="window.open('https://www.google.com/search?q=Cristobal+Sandoval', '_blank')">Buscar</button>
-                </div>
-              </div>
-              
               <div class="msn-grid-col-3">
                 <div class="msn-avatar-box" style="border-radius: 8px;">
                   <div class="msn-avatar-frame blue-status">
-                    <img src="/projects/msn_blue_buddy.png" alt="Avatar de Usuario" style="width: 100%; height: 100%; object-fit: contain; background-color: #fff;" />
+                    <img src="/projects/msn_blue_buddy.png" alt="Avatar de usuario de MSN Messenger" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2288%22 height=%2288%22><rect fill=%22%23ddd%22 width=%2288%22 height=%2288%22/><text fill=%22%23666%22 font-size=%2220%22 x=%2220%22 y=%2250%22>?</text></svg>'" />
                   </div>
                   <div class="msn-avatar-arrow-tab">▼</div>
                 </div>
-              </div>
-            </div>
-
-            <!-- Fila 4: Banner Publicitario / Tip Informativo -->
-            <div class="msn-grid-row row-ad" style="margin-top: 6px;">
-              <div class="msn-ad-banner" style="width: 100%; height: 22px; background: #fff; border: 1px solid #a3c2f2; border-radius: 4px; padding: 0 10px; display: flex; align-items: center; justify-content: flex-start; font-size: 11px; color: #4b6ebd;">
-                <span class="msn-ad-text" style="color: #4b6ebd; font-family: Tahoma, sans-serif;">Te gustan mis proyectos? <a href="mailto:cristobal.sandoval.balboa@gmail.com" style="color: #0b327b; text-decoration: underline; font-weight: bold;">Contactate conmigo via correo</a></span>
               </div>
             </div>
 
@@ -629,8 +766,137 @@ HABILIDADES TECNOLÓGICAS
         </div>
       </div>
 
+      <!-- VENTANA: REPRODUCTOR CLÁSICO WINAMP -->
+      <div class="window winamp-window hidden" id="win-winamp" style="width: 275px; top: 180px; left: 400px; z-index: 100;">
+        <!-- Winamp Titlebar -->
+        <div class="winamp-titlebar" id="winamp-drag-handle">
+          <div class="winamp-title-icon">
+            <svg viewBox="0 0 16 16" width="12" height="12">
+              <path d="M2 8 Q 4 2, 6 8 T 10 8 T 14 8" fill="none" stroke="#00e100" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <div class="winamp-title-text">WINAMP</div>
+          <div class="winamp-titlebar-controls">
+            <button class="winamp-btn-min" id="winamp-btn-minimize" aria-label="Minimizar"></button>
+            <button class="winamp-btn-max" aria-label="Maximizar" disabled></button>
+            <button class="winamp-btn-close" id="winamp-btn-close" aria-label="Cerrar"></button>
+          </div>
+        </div>
+        
+        <!-- Winamp Main Chassis -->
+        <div class="winamp-chassis">
+          <!-- Top Section: Display Panel -->
+          <div class="winamp-display-container">
+            <!-- Left Sub-Panel: Time & Visualizer -->
+            <div class="winamp-display-left">
+              <div class="winamp-status-indicators">
+                <span id="winamp-status-play" class="status-indicator">▶</span>
+                <span id="winamp-status-pause" class="status-indicator hidden">‖</span>
+              </div>
+              <!-- Time LED Display -->
+              <div class="winamp-time-display" id="winamp-time">-00:00</div>
+              <!-- Visualizer Canvas -->
+              <div class="winamp-visualizer-box">
+                <canvas id="winamp-visualizer" width="76" height="16"></canvas>
+              </div>
+            </div>
+
+            <!-- Right Sub-Panel: Title, Info, Sliders, EQ/PL & Progress -->
+            <div class="winamp-display-right">
+              <!-- Ticker -->
+              <div class="winamp-ticker-container">
+                <div class="winamp-ticker-text" id="winamp-song-title">Cargando playlist...</div>
+              </div>
+              <!-- Audio Info -->
+              <div class="winamp-audio-info">
+                <span class="info-bitrate" id="winamp-info-kbps">128</span><span class="info-label">kbps</span>
+                <span class="info-samplerate" id="winamp-info-khz">44</span><span class="info-label">kHz</span>
+                <div class="info-channels">
+                  <span id="winamp-info-mono">mono</span>
+                  <span id="winamp-info-stereo" class="active">stereo</span>
+                </div>
+              </div>
+              <!-- Sliders: Balance & Toggles -->
+              <div class="winamp-sliders-row">
+                <div class="winamp-slider-mini-container balance-mini" style="width: 60px;">
+                  <span class="slider-mini-label">B</span>
+                  <input type="range" id="winamp-balance-slider" min="-100" max="100" value="0" class="winamp-slider-mini" />
+                </div>
+                <!-- EQ / PL Toggles -->
+                <div class="winamp-toggle-buttons">
+                  <button id="winamp-toggle-pl" class="winamp-toggle-btn active">PL</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Middle Section: Full-width Progress Bar -->
+          <div class="winamp-progress-row" style="margin: 4px 0 6px 0; padding: 0 2px;">
+            <input type="range" id="winamp-progress-slider" min="0" max="100" value="0" class="winamp-progress-slider" style="width: 100%;" />
+          </div>
+
+          <!-- Bottom Section: Audio Controls & Volume & Winamp Logo -->
+          <div class="winamp-bottom-controls">
+            <div class="winamp-playback-buttons">
+              <button class="winamp-ctrl-btn prev" id="winamp-btn-prev" title="Anterior"></button>
+              <button class="winamp-ctrl-btn play" id="winamp-btn-play" title="Reproducir"></button>
+              <button class="winamp-ctrl-btn pause" id="winamp-btn-pause" title="Pausar"></button>
+              <button class="winamp-ctrl-btn stop" id="winamp-btn-stop" title="Detener"></button>
+              <button class="winamp-ctrl-btn next" id="winamp-btn-next" title="Siguiente"></button>
+              <button class="winamp-ctrl-btn eject" id="winamp-btn-eject" title="Cargar canción (URL)"></button>
+            </div>
+            
+            <!-- Volume slider with speaker icon -->
+            <div class="winamp-volume-row" style="display: flex; align-items: center; gap: 3px; background: #0a0a0d; border: 1px solid #333; padding: 1px 4px; height: 14px; border-radius: 1px;">
+              <span style="font-size: 7px; color: #aaa; line-height: 1;">🔊</span>
+              <input type="range" id="winamp-volume-slider" min="0" max="100" value="70" class="winamp-slider-mini" style="width: 48px;" />
+            </div>
+
+            <!-- Shuffle / Repeat -->
+            <div class="winamp-extra-toggles">
+              <button id="winamp-btn-shuffle" class="winamp-extra-btn" title="Aleatorio">SHU</button>
+              <button id="winamp-btn-repeat" class="winamp-extra-btn" title="Bucle">REP</button>
+            </div>
+            
+            <!-- Winamp logo -->
+            <div class="winamp-logo-corner" title="Winamp Clásico">
+              <svg viewBox="0 0 100 100" width="16" height="16">
+                <polygon points="50,15 85,50 50,85 15,50" fill="#ffffff" stroke="#000000" stroke-width="8" stroke-linejoin="miter"/>
+                <polygon points="84,10 45,40 60,40 16,84 22,60 10,58 52,32 36,32" fill="#ab5100" stroke="#000000" stroke-width="3.5" stroke-linejoin="round" transform="translate(2, 2)"/>
+                <polygon points="84,10 45,40 60,40 16,84 22,60 10,58 52,32 36,32" fill="url(#boltGradChassis)" stroke="#000000" stroke-width="3.5" stroke-linejoin="round"/>
+                <defs>
+                  <linearGradient id="boltGradChassis" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#fff040"/>
+                    <stop offset="50%" stop-color="#ffb000"/>
+                    <stop offset="100%" stop-color="#ff6000"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Winamp Playlist Editor Window (Snapped below main window) -->
+        <div class="winamp-playlist-editor">
+          <div class="playlist-title">WINAMP PLAYLIST</div>
+          <div class="playlist-tracks" id="winamp-playlist-list">
+            <!-- Tracks loaded dynamically via JS -->
+          </div>
+          <div class="playlist-footer">
+            <div class="playlist-footer-btns">
+              <button id="playlist-btn-add" class="pl-footer-btn">ADD</button>
+              <button id="playlist-btn-rem" class="pl-footer-btn">REM</button>
+              <button id="playlist-btn-sel" class="pl-footer-btn">SEL</button>
+              <button id="playlist-btn-misc" class="pl-footer-btn">MISC</button>
+            </div>
+            <div class="playlist-footer-time" id="playlist-total-time">0:00/18:19</div>
+            <button class="pl-footer-btn opts">LIST OPTS</button>
+          </div>
+        </div>
+      </div>
+
       <!-- VENTANA: PROPIEDADES DE PANTALLA (Personalización de fondos) -->
-      <div class="window win-style hidden" id="win-properties" style="width: 380px; top: 140px; left: 180px;">
+      <div class="window win-style hidden" id="win-properties" style="width: 420px; top: 140px; left: 180px;">
         <div class="title-bar">
           <div class="title-bar-text">
             <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect x='2' y='2' width='12' height='8' fill='%23FFF' stroke='%23000'/><rect x='5' y='10' width='6' height='4' fill='%23808080'/></svg>" class="win-title-icon" />
@@ -661,12 +927,12 @@ HABILIDADES TECNOLÓGICAS
                 <legend>Fondo de pantalla</legend>
                 <div class="wallpaper-selection-layout">
                   <div class="wallpaper-list-container">
-                    <select size="5" class="wallpaper-select-list" id="wallpaper-select">
-                      <option value="bliss" selected>Bliss (Colina verde)</option>
-                      <option value="autumn">Autumn (Hojas de otoño)</option>
-                      <option value="ascent">Ascent (Montaña azulada)</option>
-                      <option value="azul">Azul Clásico (Original)</option>
-                    </select>
+                    <div class="wallpaper-custom-list" id="wallpaper-select" role="listbox" aria-label="Fondo de pantalla">
+                      <div class="wallpaper-list-item selected" data-value="bliss" role="option" aria-selected="true" tabindex="0">Bliss (Colina verde)</div>
+                      <div class="wallpaper-list-item" data-value="autumn" role="option" aria-selected="false" tabindex="0">Autumn (Hojas de otoño)</div>
+                      <div class="wallpaper-list-item" data-value="ascent" role="option" aria-selected="false" tabindex="0">Ascent (Montaña azulada)</div>
+                      <div class="wallpaper-list-item" data-value="azul" role="option" aria-selected="false" tabindex="0">Azul Clásico (Original)</div>
+                    </div>
                   </div>
                   <div class="wallpaper-actions">
                     <button class="prop-btn" id="btn-apply-wallpaper">Aplicar</button>
@@ -783,9 +1049,22 @@ HABILIDADES TECNOLÓGICAS
           
           <div class="start-menu-divider"></div>
           
-          <div class="start-menu-all-programs">
+          <div class="start-menu-all-programs" id="all-programs-trigger">
             <span>Todos los programas</span>
             <span class="all-programs-arrow">▶</span>
+          </div>
+
+          <!-- Flyout submenu: Todos los programas (aparece a la derecha) -->
+          <div class="start-menu-flyout hidden" id="all-programs-flyout">
+            <div class="flyout-item" data-window="win-winamp">
+              <div class="flyout-item-icon">
+                <svg viewBox="0 0 48 48" width="20" height="20">
+                  <circle cx="24" cy="24" r="20" fill="#fff" stroke="#ccc" stroke-width="2"/>
+                  <path d="M30 12 L18 23 L24 23 L16 36 L28 25 L22 25 Z" fill="#d45500"/>
+                </svg>
+              </div>
+              <span class="flyout-item-text">Winamp</span>
+            </div>
           </div>
         </div>
 
