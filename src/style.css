@@ -1,0 +1,2279 @@
+/* Reset y Tipografía */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Tahoma, "Segoe UI", Arial, sans-serif;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  user-select: none;
+  background-color: #0A5BC4;
+}
+
+/* Helper hidden class */
+.hidden {
+  display: none !important;
+}
+
+/* Sobrescribir estilos de xp.css para lucir más limpios */
+.window {
+  font-family: Tahoma, "Segoe UI", Arial, sans-serif !important;
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+}
+
+.window.active-window {
+  box-shadow: inset -1px -1px #00138c, inset 1px 1px #0831d9, inset -2px -2px #001ea0, inset 2px 2px #166aee, inset -3px -3px #003bda, inset 3px 3px #0855dd, 0 10px 25px rgba(0, 0, 0, 0.4) !important;
+}
+
+.window.active-window .title-bar {
+  background: linear-gradient(180deg, #0997ff, #0053ee 8%, #0050ee 40%, #06f 88%, #06f 93%, #005bff 95%, #003dd7 96%, #003dd7) !important;
+}
+
+/* Si la ventana no está activa, la barra de título se ve gris */
+.window:not(.active-window) {
+  box-shadow: inset -1px -1px #5e5f5f, inset 1px 1px #a2a3a3, inset -2px -2px #757676, inset 2px 2px #e3e4e4, inset -3px -3px #8c8d8d, inset 3px 3px #cacaca, 0 5px 15px rgba(0,0,0,0.2) !important;
+}
+
+.window:not(.active-window) .title-bar {
+  background: linear-gradient(180deg, #7698c4, #7688a2 8%, #76859d 40%, #768bb1 88%, #768bb1 93%, #7694bf 95%, #6a7c9d 96%, #6a7c9d) !important;
+  border-top: 1px solid #7688a2 !important;
+  border-left: 1px solid #7688a2 !important;
+  border-right: 1px solid #6a7c9d !important;
+}
+
+.window:not(.active-window) .title-bar-controls button {
+  background-color: #76859d !important;
+}
+
+.title-bar-text {
+  font-family: Tahoma, "Segoe UI", Arial, sans-serif !important;
+  font-weight: bold;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.win-title-icon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+/* --- 1. ESCRITORIO --- */
+#desktop {
+  width: 100vw;
+  height: calc(100vh - 40px);
+  background-image: url("/wallpapers/bliss.jpg");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  justify-content: flex-start;
+  gap: 12px;
+}
+
+/* Iconos de Escritorio */
+.desktop-icon {
+  width: 82px;
+  height: 82px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  transition: background-color 0.1s, border-color 0.1s;
+}
+
+.desktop-icon:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.desktop-icon.selected {
+  background-color: rgba(11, 97, 206, 0.5) !important;
+  border: 1px dotted rgba(255, 255, 255, 0.8) !important;
+}
+
+.desktop-icon.selected .icon-text {
+  background-color: #0b61ce;
+  text-shadow: none;
+  border-radius: 2px;
+}
+
+.icon-image {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6px;
+}
+
+.icon-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(1px 2px 2px rgba(0, 0, 0, 0.3));
+}
+
+.icon-text {
+  color: #ffffff;
+  font-size: 11px;
+  text-shadow: 1px 1px 2px #000, 0px 0px 5px rgba(0,0,0,0.5);
+  text-align: center;
+  padding: 2px 4px;
+  word-break: break-word;
+  line-height: 1.2;
+  width: 100%;
+  max-height: 2.4em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* --- 2. BARRA DE TAREAS --- */
+#taskbar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 40px;
+  background: linear-gradient(180deg, #245edb 0%, #3f8cf3 9%, #245edb 18%, #245edb 92%, #1941a5 100%);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  z-index: 9999;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  padding-right: 5px;
+}
+
+/* Botón Inicio */
+#start-button {
+  height: 100%;
+  border: none;
+  background: linear-gradient(180deg, #53a93f 0%, #7dbd54 6%, #418a2b 12%, #387c24 88%, #285b19 100%);
+  color: #fff;
+  font-weight: bold;
+  font-style: italic;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 18px 0 12px;
+  border-top-right-radius: 9px;
+  border-bottom-right-radius: 9px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3), inset -1px 0 0 rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+  font-family: "Trebuchet MS", sans-serif;
+  outline: none;
+}
+
+#start-button:hover {
+  background: linear-gradient(180deg, #62be4c 0%, #8ed662 6%, #4b9b32 12%, #3d8828 88%, #2b641a 100%);
+}
+
+#start-button:active, #start-button.active {
+  background: linear-gradient(180deg, #2b641a 0%, #3d8828 12%, #4b9b32 88%, #62be4c 100%);
+}
+
+.start-icon {
+  display: flex;
+  align-items: center;
+  filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5));
+}
+
+.taskbar-divider {
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+  margin-left: 2px;
+}
+
+/* Tareas Activas */
+#active-tasks {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 8px;
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+#active-tasks::-webkit-scrollbar {
+  height: 0px;
+}
+
+.task-item {
+  width: 130px;
+  height: 28px;
+  background: linear-gradient(180deg, #3c81f2 0%, #306af4 12%, #245edb 88%, #1e52b7 100%);
+  border: 1px solid #1a3c75;
+  border-radius: 3px;
+  color: #fff;
+  font-family: Tahoma, sans-serif;
+  font-size: 11px;
+  padding: 0 6px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.3);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.task-item img {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+}
+
+.task-item:hover {
+  background: linear-gradient(180deg, #5394ff 0%, #4681f9 12%, #3873f2 88%, #2e63dd 100%);
+}
+
+.task-item.active {
+  background: linear-gradient(180deg, #1b45ab 0%, #1e52b7 12%, #245edb 88%, #1a41a5 100%);
+  box-shadow: inset -1px -1px 0 rgba(255,255,255,0.1), inset 1px 1px 2px rgba(0,0,0,0.6);
+  border: 1px solid #0f244b;
+}
+
+/* System Tray */
+#system-tray {
+  background: linear-gradient(180deg, #0c8df6 0%, #0d9cfc 10%, #0c8df6 20%, #0c8df6 90%, #0867b1 100%);
+  border-left: 1px solid #0968b0;
+  border-top: 1px solid #0968b0;
+  border-bottom: 1px solid #085593;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.2);
+}
+
+.tray-icon {
+  width: 14px;
+  height: 14px;
+  opacity: 0.85;
+}
+
+.tray-icon:hover {
+  opacity: 1;
+}
+
+#clock {
+  color: #fff;
+  font-family: Tahoma, sans-serif;
+  font-size: 11px;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.4);
+  margin-left: 2px;
+  white-space: nowrap;
+}
+
+/* --- 3. MENÚ DE INICIO --- */
+#start-menu {
+  position: absolute;
+  bottom: 40px;
+  left: 0;
+  width: 390px;
+  background-color: #245edb;
+  border: 2px solid #245edb;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  z-index: 10000;
+  box-shadow: 2px -2px 15px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+}
+
+.start-menu-header {
+  height: 48px;
+  background: linear-gradient(180deg, #1c56ea 0%, #1d72f9 8%, #1c56ea 16%, #1c56ea 88%, #133db5 100%);
+  border-bottom: 2px solid #e1e7f8;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 12px;
+  color: #fff;
+}
+
+.start-menu-avatar {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #fff;
+  border-radius: 3px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.start-menu-avatar svg {
+  width: 100%;
+  height: 100%;
+}
+
+.start-menu-username {
+  font-weight: bold;
+  font-size: 12px;
+  text-shadow: 1px 1px 1px #000;
+}
+
+.start-menu-columns {
+  display: flex;
+  background-color: #fff;
+}
+
+/* Columna Izquierda */
+.start-menu-left {
+  width: 200px;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  background-color: #ffffff;
+}
+
+.start-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.start-menu-item:hover {
+  background-color: #245edb;
+  color: #fff;
+}
+
+.start-menu-item:hover .item-text span {
+  color: #c5d7ff;
+}
+
+.item-icon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.item-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.item-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.item-text strong {
+  font-size: 11px;
+}
+
+.item-text span {
+  font-size: 9px;
+  color: #7f7f7f;
+}
+
+.start-menu-divider {
+  height: 1px;
+  background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.1) 10%, rgba(0,0,0,0.1) 90%, rgba(0,0,0,0) 100%);
+  margin: 4px 0;
+}
+
+.start-menu-all-programs {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 10px;
+  font-weight: bold;
+  font-size: 11px;
+  cursor: pointer;
+  margin-top: auto;
+}
+
+.start-menu-all-programs:hover {
+  background-color: #245edb;
+  color: #fff;
+}
+
+.all-programs-arrow {
+  color: #387c24;
+  font-size: 9px;
+}
+
+.start-menu-all-programs:hover .all-programs-arrow {
+  color: #fff;
+}
+
+/* Columna Derecha */
+.start-menu-right {
+  width: 186px;
+  background-color: #d3e5fa;
+  border-left: 1px solid #b5d3fa;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.right-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 8px;
+  font-size: 11px;
+  color: #0a3180;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.right-menu-item:hover {
+  background-color: #245edb;
+  color: #fff;
+}
+
+.right-menu-item img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.right-menu-item.disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.right-menu-item.disabled:hover {
+  background-color: transparent;
+  color: #0a3180;
+}
+
+.start-menu-footer {
+  height: 40px;
+  background: linear-gradient(180deg, #1c56ea 0%, #1d72f9 8%, #1c56ea 16%, #1c56ea 88%, #133db5 100%);
+  border-top: 2px solid #e1e7f8;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  padding: 0 12px;
+}
+
+.footer-btn {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: #fff;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  min-width: unset;
+  min-height: unset;
+  padding: 4px 6px;
+  border-radius: 3px;
+  transition: background-color 0.1s;
+}
+
+.footer-btn:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  box-shadow: none !important;
+}
+
+.footer-btn-icon {
+  font-size: 12px;
+}
+
+/* --- 4. EXPLORER LAYOUT (Sobre Mí) --- */
+.xp-explorer-layout {
+  display: flex;
+  height: 340px;
+  border: 1px solid #7f9db9;
+  background-color: #7aa1e6;
+}
+
+.xp-explorer-sidebar {
+  width: 160px;
+  background: linear-gradient(180deg, #7aa1e6 0%, #4b78db 100%);
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+}
+
+.xp-explorer-sidebar details {
+  background-color: #d6e4f7;
+  border: 1px solid #ffffff;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  overflow: hidden;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+}
+
+.xp-explorer-sidebar summary {
+  background: linear-gradient(90deg, #f0f8ff 0%, #c2d9f7 100%);
+  color: #0f4088;
+  font-weight: bold;
+  font-size: 10px;
+  padding: 4px 8px;
+  cursor: pointer;
+  border-bottom: 1px solid #ffffff;
+  outline: none;
+  list-style: none;
+}
+
+.xp-explorer-sidebar summary::-webkit-details-marker {
+  display: none;
+}
+
+.xp-explorer-sidebar ul {
+  list-style: none;
+  padding: 6px 8px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.xp-explorer-sidebar li {
+  margin-top: 0 !important;
+  text-shadow: none !important;
+}
+
+.sidebar-link {
+  color: #0a3180 !important;
+  text-decoration: none !important;
+  font-size: 10px;
+  display: block;
+}
+
+.sidebar-link:hover {
+  text-decoration: underline !important;
+}
+
+.xp-explorer-content {
+  flex: 1;
+  background-color: #ffffff;
+  padding: 12px;
+  overflow-y: auto;
+  font-size: 11px;
+}
+
+/* Acerca de Mí Detalle */
+.about-title {
+  color: #0a3180;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.about-text {
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+
+.about-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 10px;
+}
+
+.about-table td {
+  padding: 3px 0;
+}
+
+/* --- 5. CARPETAS DE PROYECTOS (VISTA DE VIDEOS) --- */
+.xp-toolbar {
+  background-color: #f1efe2;
+  border-bottom: 1px solid #dcd9d1;
+  padding: 4px 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.toolbar-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  box-shadow: none;
+  padding: 2px 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  min-width: unset;
+  min-height: unset;
+  font-size: 11px;
+}
+
+.toolbar-btn:hover:not(:disabled) {
+  border-color: #aaa;
+  background-color: #e5e5e5;
+  box-shadow: none !important;
+}
+
+.toolbar-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.xp-address-bar {
+  background-color: #f1efe2;
+  border-bottom: 1px solid #dcd9d1;
+  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+}
+
+.xp-address-bar input {
+  flex: 1;
+  height: 20px;
+  padding: 2px 4px;
+  border: 1px solid #7f9db9;
+  font-size: 11px;
+  background-color: #fff;
+}
+
+/* Grilla Clásica de Carpetas en Explorer, ajustada para videos grandes */
+.explorer-folder-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 20px;
+  padding: 15px;
+  background-color: #ffffff;
+  height: 260px;
+  overflow-y: auto;
+}
+
+.explorer-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid transparent;
+  padding: 8px 4px;
+  border-radius: 2px;
+}
+
+.explorer-item:hover {
+  background-color: #f2f7fd;
+  border-color: #b8d6fb;
+}
+
+/* Estilos específicos para la vista previa de videos */
+.video-item {
+  width: 130px !important;
+  padding: 6px !important;
+}
+
+.video-thumbnail-wrapper {
+  width: 120px;
+  height: 90px;
+  background-color: #000000;
+  border: 1px solid #7f7f7f;
+  border-radius: 3px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.25);
+  margin-bottom: 6px;
+}
+
+/* Borde lateral de cinta de película cinematográfica */
+.film-strip-edge {
+  width: 10px;
+  height: 100%;
+  background: repeating-linear-gradient(
+    #222 0px, #222 5px,
+    #ffffff 5px, #ffffff 10px
+  );
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  opacity: 0.85;
+}
+
+.film-strip-edge.left {
+  left: 0;
+  border-right: 1.5px solid #111111;
+}
+
+.film-strip-edge.right {
+  right: 0;
+  border-left: 1.5px solid #111111;
+}
+
+/* Pantalla de previsualización con fondo */
+.video-preview-screen {
+  width: calc(100% - 20px);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: filter 0.2s ease;
+}
+
+.beast-gym-bg {
+  background-image: url("/projects/gym_preview.png");
+  background-size: cover;
+  background-position: center;
+}
+
+.cardpoint-bg {
+  background-image: url("/projects/cardpoint_preview.png");
+  background-size: cover;
+  background-position: center;
+}
+
+.vanessa-bg {
+  background-image: url("/projects/vanessa_preview.png");
+  background-size: cover;
+  background-position: center;
+}
+
+.github-bg {
+  background-image: url("/projects/github_preview.png");
+  background-size: cover;
+  background-position: center;
+}
+
+.vercel-bg {
+  background: linear-gradient(135deg, #111111 0%, #000000 100%);
+}
+
+.ecommerce-bg {
+  background: linear-gradient(135deg, #3f51b5 0%, #009688 100%);
+}
+
+.facials-bg {
+  background: linear-gradient(135deg, #ad1457 0%, #ff80ab 100%);
+}
+
+/* Icono descriptivo del SVG */
+.preview-svg-icon {
+  opacity: 0.85;
+  filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.5));
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.video-item:hover .preview-svg-icon {
+  transform: scale(0.9);
+  opacity: 0.5;
+}
+
+/* Botón flotante de Play (reproducción) */
+.play-overlay {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.65);
+  border: 1.5px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  z-index: 3;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.play-icon {
+  font-size: 10px;
+  color: #ffffff;
+  margin-left: 2.5px;
+  line-height: 1;
+}
+
+.video-item:hover .play-overlay {
+  transform: scale(1.2);
+  background-color: #ee3c0c;
+}
+
+/* Flecha azul clásica de acceso directo de XP */
+.shortcut-arrow {
+  position: absolute;
+  bottom: 2px;
+  left: 12px;
+  width: 13px;
+  height: 13px;
+  background-color: #ffffff;
+  border: 1px solid #777777;
+  border-radius: 1px;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shortcut-arrow::after {
+  content: "➔";
+  font-size: 8px;
+  color: #0000ff;
+  font-weight: bold;
+  transform: rotate(-45deg) scale(0.9);
+  position: relative;
+  top: -1px;
+}
+
+.explorer-item-name {
+  font-size: 11px;
+  color: #000;
+  word-break: break-word;
+  line-height: 1.2;
+}
+
+/* --- 6. BLOC DE NOTAS --- */
+.xp-menu-bar {
+  background-color: #f1efe2;
+  border-bottom: 1px solid #dcd9d1;
+  padding: 3px 6px;
+  display: flex;
+  gap: 12px;
+  font-size: 11px;
+}
+
+.xp-menu-bar span {
+  cursor: pointer;
+  padding: 1px 4px;
+}
+
+.xp-menu-bar span:hover {
+  background-color: #245edb;
+  color: #fff;
+}
+
+.notepad-textarea {
+  width: 100%;
+  height: 280px;
+  border: none;
+  resize: none;
+  font-family: Consolas, "Courier New", monospace !important;
+  font-size: 12px !important;
+  padding: 8px !important;
+  line-height: 1.4;
+  outline: none;
+  background-color: #fff;
+}
+
+/* --- 7. CV PDF --- */
+.pdf-toolbar {
+  background-color: #eae8db;
+  border-bottom: 1px solid #bbb8a9;
+  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+}
+
+.pdf-btn {
+  background-color: #fdfdfb;
+  border: 1px solid #999580;
+  box-shadow: inset 0 1px 0 #fff;
+  font-size: 11px;
+  padding: 2px 8px;
+  cursor: pointer;
+  min-width: unset;
+  min-height: unset;
+}
+
+.pdf-btn:hover {
+  background-color: #f1efe2;
+  box-shadow: none !important;
+}
+
+.pdf-page-preview {
+  background-color: #525659;
+  padding: 10px;
+  height: 290px;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.pdf-page {
+  background-color: #fff;
+  width: 100%;
+  max-width: 440px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+.cv-header {
+  font-size: 16px;
+  color: #2b5b84;
+  margin-bottom: 2px;
+  font-family: Arial, sans-serif !important;
+}
+
+.cv-sub {
+  font-size: 9px;
+  color: #777;
+  margin-bottom: 6px;
+}
+
+.pdf-page hr {
+  border: 0;
+  border-top: 1.5px solid #2b5b84;
+  margin-bottom: 10px;
+}
+
+.pdf-page h3 {
+  font-size: 10px;
+  color: #2b5b84;
+  margin-top: 8px;
+  margin-bottom: 3px;
+  font-family: Arial, sans-serif !important;
+  text-transform: uppercase;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 2px;
+}
+
+.cv-p {
+  font-size: 9px;
+  line-height: 1.3;
+  margin-bottom: 6px;
+}
+
+/* --- 8. MSN MESSENGER (Contáctame) --- */
+.msn-header {
+  background: linear-gradient(180deg, #eaf2fb 0%, #b8d2f5 100%);
+  border: 1px solid #7ea7dd;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.msn-user-avatar {
+  background-color: #fff;
+  border: 1.5px solid #7ea7dd;
+  border-radius: 3px;
+  padding: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.msn-user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.msn-user-name {
+  font-weight: bold;
+  font-size: 11px;
+  color: #0b327b;
+}
+
+.msn-user-status {
+  font-size: 10px;
+  color: #555;
+  font-style: italic;
+}
+
+.msn-mailto-link {
+  color: #0b327b !important;
+  text-decoration: underline !important;
+  font-weight: bold;
+}
+
+.msn-mailto-link:hover {
+  color: #ff5500 !important;
+}
+
+.msn-chat-history {
+  background-color: #fff;
+  border: 1px solid #7f9db9;
+  height: 180px;
+  overflow-y: auto;
+  padding: 8px;
+  font-size: 11px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.msn-system-msg {
+  color: #888;
+  font-size: 9px;
+  text-align: center;
+}
+
+.msn-msg {
+  display: flex;
+  flex-direction: column;
+}
+
+.msn-sender {
+  font-weight: bold;
+  font-size: 10px;
+  margin-bottom: 1px;
+}
+
+.msn-msg-them .msn-sender {
+  color: #ff5500;
+}
+
+.msn-msg-me .msn-sender {
+  color: #0055ff;
+}
+
+.msn-text {
+  color: #000;
+  line-height: 1.3;
+}
+
+.msn-input-area {
+  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.msn-textarea {
+  width: 100%;
+  height: 45px;
+  border: 1px solid #7f9db9;
+  resize: none;
+  font-size: 11px;
+  padding: 4px;
+  outline: none;
+}
+
+.msn-button-row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.msn-send-btn {
+  background-color: #fdfdfb;
+  border: 1px solid #7f9db9;
+  font-size: 11px;
+  padding: 2px 12px;
+  cursor: pointer;
+  min-height: unset;
+  min-width: unset;
+}
+
+.msn-send-btn:hover {
+  background-color: #eaf2fb;
+  box-shadow: none !important;
+}
+
+/* --- 9. PROPIEDADES DE PANTALLA --- */
+.properties-tabs {
+  margin-bottom: 8px;
+}
+
+.display-preview-container {
+  background-color: #5a5a5a;
+  border: 1px solid #808080;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 130px;
+}
+
+/* Modelo Clásico de Monitor CRT */
+.crt-monitor {
+  width: 130px;
+  height: 105px;
+  background-color: #d8d6c3;
+  border: 3px solid #b8b6a3;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  box-shadow: 1px 2px 4px rgba(0,0,0,0.4);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom-width: 6px;
+}
+
+.crt-screen {
+  width: 112px;
+  height: 80px;
+  background-color: #0A5BC4;
+  border-radius: 4px;
+  border: 2px solid #5a584a;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  transition: background-image 0.2s ease-in-out;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.8);
+}
+
+.crt-monitor::after {
+  content: "";
+  position: absolute;
+  bottom: -15px;
+  left: 45px;
+  width: 40px;
+  height: 10px;
+  background-color: #b8b6a3;
+  z-index: -1;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.wallpaper-selection-layout {
+  display: flex;
+  gap: 10px;
+  padding: 5px 0;
+}
+
+.wallpaper-list-container {
+  flex: 1;
+  border: 1px solid #7f9db9;
+  background-color: #fff;
+}
+
+.wallpaper-select-list {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 11px;
+  height: 70px;
+}
+
+.wallpaper-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.prop-btn {
+  padding: 3px 10px;
+  min-width: 70px !important;
+  font-size: 11px;
+}
+
+.properties-footer-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid #d4d0c8;
+}
+
+/* --- 10. MENÚ CONTEXTUAL --- */
+#desktop-context-menu {
+  position: absolute;
+  background-color: #ffffff;
+  border: 1px solid #718bb7;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.35);
+  z-index: 100005;
+  width: 145px;
+  font-family: Tahoma, sans-serif;
+  font-size: 11px;
+  padding: 2px;
+}
+
+.context-menu-item {
+  padding: 4px 18px;
+  cursor: pointer;
+  color: #000000;
+  display: flex;
+  align-items: center;
+}
+
+.context-menu-item:hover:not(.disabled) {
+  background-color: #245edb;
+  color: #ffffff;
+}
+
+.context-menu-item.disabled {
+  color: #888888;
+  cursor: default;
+}
+
+.context-menu-divider {
+  height: 1px;
+  background-color: #cbd5e1;
+  margin: 3px 0;
+}
+
+/* --- 11. PANTALLA DE APAGADO --- */
+#shutdown-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: grayscale(100%) contrast(80%);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shutdown-dialog {
+  width: 300px;
+  background: linear-gradient(180deg, #1c52d5 0%, #0c38af 100%);
+  border: 1px solid #ffffff;
+  border-radius: 4px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  padding: 15px;
+  color: #ffffff;
+  text-align: center;
+}
+
+.shutdown-dialog h3 {
+  font-size: 14px;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.shutdown-dialog p {
+  font-size: 11px;
+  margin-bottom: 15px;
+}
+
+.shutdown-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.shutdown-btn {
+  background: linear-gradient(180deg, #fdfdfb 0%, #dfdfdf 100%);
+  border: 1px solid #7f7f7f;
+  color: #000;
+  font-size: 11px;
+  padding: 4px 10px;
+  cursor: pointer;
+  min-width: 70px;
+  min-height: unset;
+}
+
+.shutdown-btn:hover {
+  background: #ffffff;
+  box-shadow: none !important;
+}
+
+/* --- 12. OPTIMIZACIONES RESPONSIVE (Móviles / Teléfonos) --- */
+@media (max-width: 768px) {
+  /* Distribución Escritorio */
+  #desktop {
+    padding: 10px;
+    gap: 8px;
+    align-content: center;
+  }
+
+  .desktop-icon {
+    width: 74px;
+    height: 76px;
+  }
+
+  .icon-image {
+    width: 34px;
+    height: 34px;
+  }
+
+  .icon-text {
+    font-size: 10px;
+    max-height: 2.4em;
+  }
+
+  /* Ajustar Ventanas en Móvil */
+  .window {
+    width: 96vw !important;
+    left: 2vw !important;
+    top: 15px !important;
+    height: calc(100vh - 75px) !important;
+    max-height: none !important;
+  }
+
+  .window.maximized {
+    width: 100vw !important;
+    left: 0 !important;
+    top: 0 !important;
+    height: calc(100vh - 40px) !important;
+  }
+
+  .xp-explorer-layout {
+    flex-direction: column;
+    height: calc(100vh - 170px) !important;
+  }
+
+  .xp-explorer-sidebar {
+    width: 100% !important;
+    height: 100px !important;
+    flex-direction: row !important;
+    gap: 6px;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .xp-explorer-sidebar details {
+    min-width: 130px;
+    height: 100%;
+  }
+
+  .xp-explorer-sidebar ul {
+    padding: 3px 6px;
+  }
+
+  .xp-explorer-content {
+    height: calc(100% - 100px) !important;
+  }
+
+  /* Bloc de notas y PDF previews en móvil */
+  .notepad-textarea {
+    height: calc(100vh - 190px) !important;
+  }
+
+  .pdf-page-preview {
+    height: calc(100vh - 210px) !important;
+  }
+
+  .pdf-page {
+    padding: 12px;
+  }
+
+  /* Ajustar grilla de videos en móviles */
+  .explorer-folder-grid {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)) !important;
+    gap: 12px !important;
+    height: calc(100vh - 210px) !important;
+  }
+
+  .video-item {
+    width: 110px !important;
+    padding: 4px !important;
+  }
+
+  .video-thumbnail-wrapper {
+    width: 100px !important;
+    height: 75px !important;
+  }
+
+  .film-strip-edge {
+    width: 8px !important;
+  }
+
+  .video-preview-screen {
+    width: calc(100% - 16px) !important;
+  }
+
+  .preview-svg-icon {
+    width: 22px !important;
+    height: 22px !important;
+  }
+
+  .play-overlay {
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  .play-icon {
+    font-size: 8px !important;
+    margin-left: 2px !important;
+  }
+
+  .shortcut-arrow {
+    left: 10px !important;
+    width: 11px !important;
+    height: 11px !important;
+  }
+
+  .shortcut-arrow::after {
+    font-size: 6px !important;
+  }
+
+  .msn-chat-history {
+    height: calc(100vh - 260px) !important;
+  }
+
+  /* Barra de Tareas en Móvil */
+  #active-tasks {
+    padding: 0 4px;
+    gap: 3px;
+  }
+
+  .task-item {
+    width: 32px !important;
+    height: 28px !important;
+    padding: 0 !important;
+    justify-content: center;
+  }
+
+  .task-item img {
+    width: 18px;
+    height: 18px;
+    margin: 0 !important;
+  }
+
+  .task-item span {
+    display: none !important;
+  }
+
+  #start-button {
+    padding: 0 10px 0 8px;
+  }
+  
+  #start-button .start-text {
+    display: none;
+  }
+
+  #system-tray {
+    padding: 0 6px;
+    gap: 4px;
+  }
+
+  .tray-icon {
+    display: none;
+  }
+
+  /* Menú de Inicio en Móvil */
+  #start-menu {
+    width: 100vw !important;
+    bottom: 40px !important;
+    left: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  .start-menu-columns {
+    flex-direction: column;
+  }
+
+  .start-menu-left {
+    width: 100% !important;
+  }
+
+  .start-menu-right {
+    width: 100% !important;
+    border-left: none !important;
+    border-top: 1px solid #b5d3fa;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .right-menu-item {
+    padding: 4px 6px;
+  }
+  
+  .xp-projects-sidebar {
+    display: none !important;
+  }
+}
+
+/* Ocultar semánticamente para SEO */
+.seo-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Estilos de enfoque accesible retro */
+.desktop-icon:focus-visible,
+.footer-btn:focus-visible,
+.toolbar-btn:focus-visible,
+#start-button:focus-visible {
+  outline: 1px dotted #ffffff !important;
+  outline-offset: 1px;
+}
+
+/* Globo de notificación clásico de Windows XP */
+#tray-balloon {
+  position: absolute;
+  bottom: 48px;
+  right: 15px;
+  width: 250px;
+  background-color: #ffffe1;
+  border: 1px solid #000000;
+  border-radius: 6px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+  padding: 8px 10px;
+  z-index: 100000;
+  font-family: Tahoma, sans-serif;
+  font-size: 11px;
+  color: #000000;
+  line-height: 1.3;
+}
+
+.balloon-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: bold;
+  margin-bottom: 4px;
+  font-size: 11px;
+}
+
+.balloon-title-icon {
+  font-size: 12px;
+  margin-right: 4px;
+}
+
+.balloon-title {
+  flex: 1;
+}
+
+.balloon-close {
+  background: transparent;
+  border: none;
+  font-size: 14px;
+  font-weight: bold;
+  color: #888888;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  min-width: unset;
+  min-height: unset;
+}
+
+.balloon-close:hover {
+  color: #ff0000;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.balloon-content {
+  color: #333333;
+}
+
+.balloon-arrow {
+  position: absolute;
+  bottom: -10px;
+  right: 35px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #000000;
+}
+
+.balloon-arrow::after {
+  content: "";
+  position: absolute;
+  top: -11px;
+  left: -10px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #ffffe1;
+}
+
+.xp-explorer-layout {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+
+/* Barra lateral de detalles en Mis Proyectos (Estilo Windows XP Explorer) */
+.xp-projects-sidebar {
+  width: 220px;
+  background: linear-gradient(180deg, #7aa1e6 0%, #4b78db 100%);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  color: #000;
+  flex-shrink: 0;
+}
+
+.xp-projects-sidebar .sidebar-section {
+  background-color: #d6e4f7;
+  border: 1px solid #ffffff;
+  border-radius: 4px;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+  overflow: hidden;
+}
+
+.xp-projects-sidebar .sidebar-section-title {
+  background: linear-gradient(90deg, #f0f8ff 0%, #c2d9f7 100%);
+  color: #0f4088;
+  font-weight: bold;
+  font-size: 11px;
+  padding: 5px 8px;
+  border-bottom: 1px solid #ffffff;
+  text-shadow: none;
+}
+
+.xp-projects-sidebar .sidebar-section-body {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 11px;
+}
+
+/* Pantalla de Vista Previa del Video en el Sidebar */
+.sidebar-video-preview {
+  width: 100%;
+  height: 110px;
+  background-color: #000;
+  border: 1px solid #7f7f7f;
+  border-radius: 3px;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.sidebar-screen-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  transition: background 0.2s ease-in-out;
+}
+
+.sidebar-metadata h4 {
+  font-size: 12px;
+  color: #0a3180;
+  margin-bottom: 4px;
+  word-break: break-word;
+}
+
+.sidebar-metadata p {
+  font-size: 10px;
+  color: #333;
+  line-height: 1.3;
+}
+
+/* Píldora de estado (Activo/En implementación) */
+.sidebar-status-pill {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #387c24;
+  padding: 2px 6px;
+  border-radius: 9px;
+  margin-top: 6px;
+  text-transform: uppercase;
+  width: fit-content;
+}
+
+.sidebar-status-pill.implementacion {
+  background-color: #b45309;
+}
+
+/* Enlaces de acciones */
+.sidebar-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.sidebar-action-link {
+  color: #0a3180 !important;
+  text-decoration: none !important;
+  font-weight: bold;
+  font-size: 11px;
+  display: block;
+}
+
+.sidebar-action-link:hover {
+  text-decoration: underline !important;
+  color: #ee3c0c !important;
+}
+
+/* --- 15. ESTILOS DE MSN MESSENGER CLÁSICO (MSN 7.5) --- */
+.msn-toolbar {
+  background: linear-gradient(180deg, #e4effe 0%, #cbe0fc 45%, #b2d0fa 100%);
+  border-bottom: 1px solid #9dc2f7;
+  padding: 6px 12px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  box-shadow: inset 0 -1px 0 rgba(255,255,255,0.4);
+}
+
+.msn-menu-bar {
+  background-color: #ece9d8;
+  border-bottom: 1px solid #d6d3c2;
+  padding: 3px 10px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.msn-menu-item {
+  font-family: Tahoma, sans-serif;
+  font-size: 11px;
+  color: #000;
+  cursor: pointer;
+  padding: 2px 5px;
+  border-radius: 2px;
+}
+
+.msn-menu-item:hover {
+  background-color: #316ac5;
+  color: #fff;
+}
+
+.msn-tb-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #55b524;
+  border: 1px solid #327513;
+  margin-right: 6px;
+  margin-left: 2px;
+}
+
+.msn-tb-mid-icons {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255,255,255,0.25);
+  border: 1px solid rgba(0,60,180,0.15);
+  border-radius: 12px;
+  padding: 2px 6px;
+  margin-left: 8px;
+}
+
+.msn-tb-circle-btn {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid #9dc2f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0.5px 0.5px 1px rgba(0,0,0,0.1);
+}
+
+.msn-tb-circle-btn:hover {
+  background: #f0f5ff;
+  border-color: #3b7cf3;
+}
+
+.msn-tb-circle-btn svg {
+  vertical-align: middle;
+}
+
+.msn-tb-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 68px;
+  padding: 4px 2px;
+  color: #082d6b;
+  cursor: pointer;
+  font-family: Tahoma, sans-serif;
+  font-size: 10px;
+  font-weight: normal;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  transition: background-color 0.1s, border-color 0.1s;
+}
+
+.msn-tb-btn:hover {
+  background-color: rgba(255, 255, 255, 0.45);
+  border: 1px solid #b5d3fa;
+  color: #ee3c0c;
+}
+
+.msn-tb-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  margin-bottom: 2px;
+}
+
+.msn-tb-text {
+  font-size: 9px;
+  color: #082d6b;
+  font-weight: bold;
+}
+
+.msn-logo-area {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  padding-right: 4px;
+}
+
+/* MSN Body */
+.msn-window-body {
+  background-color: #eef5fd;
+  font-family: Tahoma, sans-serif;
+  padding: 8px 10px 6px 10px !important;
+  margin: 0 !important;
+  display: flex;
+  flex-direction: column;
+}
+
+.msn-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.msn-grid-row {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: stretch;
+}
+
+.msn-grid-col-1 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+}
+
+.msn-grid-col-2 {
+  width: 75px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Alinear los botones enviar/buscar al fondo de la fila */
+}
+
+.msn-grid-col-3 {
+  width: 100px;
+  display: flex;
+  justify-content: center;
+}
+
+.row-chat .msn-grid-col-3 {
+  align-items: flex-start; /* Alinear avatar de Cristóbal al tope */
+}
+
+.row-format .msn-grid-col-3 {
+  align-items: center; /* Alinear divisor central de avatares */
+}
+
+.row-input .msn-grid-col-3 {
+  align-items: flex-end; /* Alinear avatar de usuario al fondo */
+}
+
+/* Contenedor Blanco Integrado */
+.msn-white-chat-container {
+  background-color: #FFF;
+  border: 1px solid #7fa9f5;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.msn-chat-header {
+  background-color: #FFF;
+  border: none;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.msn-chat-title {
+  font-size: 11px;
+  color: #555;
+}
+
+.msn-chat-title strong {
+  color: #ee3c0c;
+}
+
+.msn-chat-title a {
+  color: #082d6b !important;
+  text-decoration: underline !important;
+}
+
+.msn-chat-title a:hover {
+  color: #ee3c0c !important;
+}
+
+.msn-chat-subtitle {
+  font-size: 10px;
+  color: #666;
+  font-style: italic;
+  margin-top: 2px;
+}
+
+.msn-chat-divider {
+  height: 1px;
+  background-color: #e5effd;
+  margin: 0 10px;
+}
+
+/* Chat History */
+.msn-chat-history {
+  height: 180px;
+  border: none;
+  background-color: #FFF;
+  overflow-y: auto;
+  padding: 8px 10px;
+  font-size: 11px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.msn-system-msg {
+  color: #777;
+  font-size: 10px;
+  text-align: center;
+  margin-bottom: 2px;
+}
+
+.msn-msg {
+  display: flex;
+  flex-direction: column;
+}
+
+.msn-sender {
+  color: #245edb;
+  font-weight: bold;
+}
+
+.msn-msg-me .msn-sender {
+  color: #008000;
+}
+
+.msn-text {
+  color: #000;
+  display: block;
+  margin-top: 2px;
+  word-break: break-word;
+}
+
+/* Format Bar */
+.msn-format-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 10px;
+  background: linear-gradient(180deg, #f3f8fe 0%, #dbf0fe 40%, #c4e3fd 100%);
+  border: 1px solid #7fa9f5;
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+}
+
+.msn-fmt-text-btn {
+  font-family: Tahoma, sans-serif;
+  font-size: 11px;
+  color: #082d6b;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 1px 4px;
+  border-radius: 2px;
+}
+
+.msn-fmt-text-btn:hover {
+  background-color: rgba(255,255,255,0.5);
+  box-shadow: 0 0 1px rgba(0,0,0,0.1);
+}
+
+.msn-fmt-icon-btn {
+  font-size: 13px;
+  cursor: pointer;
+  padding: 1px 3px;
+  border-radius: 2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.msn-fmt-icon-btn:hover {
+  background-color: rgba(255,255,255,0.5);
+}
+
+/* Input Area */
+.msn-input-container {
+  border: 1px solid #7fa9f5;
+  border-radius: 0 0 8px 8px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.msn-textarea {
+  border: none;
+  width: 100%;
+  height: 50px;
+  resize: none;
+  font-size: 11px;
+  padding: 6px;
+  outline: none;
+  background: #fff;
+  font-family: Tahoma, sans-serif;
+}
+
+.msn-input-bottom-bar {
+  height: 16px;
+  border-top: 1px solid #f2f7fe;
+  background: #f9fbfd;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 6px;
+  gap: 6px;
+}
+
+.msn-buttons-column {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 75px;
+}
+
+.msn-send-btn {
+  height: 26px;
+  background: linear-gradient(180deg, #ffffff 0%, #e2e1da 100%);
+  border: 1px solid #b0afaa;
+  border-radius: 4px;
+  font-weight: normal;
+  font-size: 11px;
+  cursor: pointer;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 1px 1px 0 #fff;
+}
+
+.msn-send-btn:hover {
+  background: linear-gradient(180deg, #ffffff 0%, #d5d3cc 100%);
+  border-color: #807f7a;
+}
+
+.msn-search-btn {
+  height: 21px;
+  background: linear-gradient(180deg, #ffffff 0%, #e8e7e1 100%);
+  border: 1px solid #c0bfb9;
+  border-radius: 4px;
+  font-size: 10px;
+  cursor: pointer;
+  color: #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 1px 1px 0 #fff;
+}
+
+.msn-search-btn:hover {
+  background: linear-gradient(180deg, #ffffff 0%, #d5d3cc 100%);
+  border-color: #807f7a;
+}
+
+/* Avatares (Display Pictures) */
+.msn-chat-right {
+  width: 106px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 0;
+}
+
+.msn-avatar-box {
+  position: relative;
+  width: 98px;
+  background-color: #FFF;
+  border: 1px solid #9dc2f7;
+  border-radius: 8px;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.06);
+}
+
+.msn-avatar-box::after {
+  content: "";
+  position: absolute;
+  right: -5px;
+  top: 25px;
+  width: 5px;
+  height: 35px;
+  background: linear-gradient(90deg, #e6f0fd 0%, #cbe0fc 100%);
+  border: 1px solid #9dc2f7;
+  border-left: none;
+  border-radius: 0 3px 3px 0;
+}
+
+.msn-avatar-frame {
+  width: 88px;
+  height: 88px;
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.msn-avatar-frame.green-status {
+  border: 2px solid #387c24;
+}
+
+.msn-avatar-frame.blue-status {
+  border: 2px solid #245edb;
+}
+
+.msn-avatar-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.msn-avatar-arrow-tab {
+  width: 100%;
+  text-align: center;
+  font-size: 7px;
+  color: #7fa9f5;
+  background-color: #f7fafd;
+  border-top: 1px solid #cbdcfc;
+  cursor: pointer;
+  padding: 1px 0;
+  border-radius: 0 0 5px 5px;
+  margin-top: 2px;
+}
+
+.msn-avatar-arrow-tab:hover {
+  background-color: #e5effd;
+  color: #245edb;
+}
+
+.msn-right-divider {
+  width: 70px;
+  height: 1px;
+  background-color: #cbdcfc;
+}
+
+/* Banner de Publicidad MSN */
+.msn-ad-banner {
+  margin-top: 6px;
+  background-color: #FFF;
+  border: 1px solid #a3c2f2;
+  border-radius: 4px;
+  height: 22px;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 11px;
+  font-family: Tahoma, sans-serif;
+  color: #4b6ebd;
+  box-shadow: inset 1px 1px 2px rgba(0,0,0,0.02);
+}
+
+.msn-ad-title {
+  color: #ee3c0c;
+  font-weight: bold;
+  border-right: 1px solid #cbdcfc;
+  padding-right: 8px;
+  font-family: Arial, sans-serif;
+  text-transform: uppercase;
+  font-size: 9px;
+  letter-spacing: 0.5px;
+}
+
+.msn-ad-text {
+  color: #555;
+  line-height: 1.2;
+}
+
+/* Animación de Zumbido (Shake effect) */
+.msn-shake {
+  animation: shake-anim 0.4s ease-in-out;
+}
+
+@keyframes shake-anim {
+  0% { transform: translate(0, 0); }
+  10% { transform: translate(-8px, -6px) rotate(-1deg); }
+  20% { transform: translate(8px, 6px) rotate(1deg); }
+  30% { transform: translate(-6px, 8px) rotate(-1deg); }
+  40% { transform: translate(6px, -8px) rotate(1deg); }
+  50% { transform: translate(-8px, -4px) rotate(-1deg); }
+  60% { transform: translate(8px, 4px) rotate(1deg); }
+  70% { transform: translate(-6px, 6px) rotate(-1deg); }
+  80% { transform: translate(6px, -6px) rotate(1deg); }
+  90% { transform: translate(-4px, 4px) rotate(0deg); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Ocultar avatar y ad de MSN en móviles para ahorrar espacio */
+@media (max-width: 768px) {
+  #win-contact {
+    width: 96vw !important;
+  }
+  .msn-grid-col-3 {
+    display: none !important;
+  }
+  .msn-ad-banner {
+    display: none !important;
+  }
+  .msn-toolbar {
+    overflow-x: auto;
+    white-space: nowrap;
+    gap: 8px;
+  }
+  .msn-tb-btn {
+    flex-shrink: 0;
+  }
+}
