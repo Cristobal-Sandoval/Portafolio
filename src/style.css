@@ -694,6 +694,15 @@ textarea.notepad-textarea,
   padding: 3px 0;
 }
 
+.about-table td a {
+  color: #0000ee !important;
+  text-decoration: underline !important;
+}
+
+.about-table td a:hover {
+  color: #ff0000 !important;
+}
+
 /* --- 5. CARPETAS DE PROYECTOS (VISTA DE VIDEOS) --- */
 .xp-toolbar {
   background-color: #f1efe2;
